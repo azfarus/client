@@ -21,7 +21,7 @@ void main()
 	}
 
 
-	SOCKET sock = connectToServer("192.168.0.106", 54000);
+	SOCKET sock = connectToServer("192.168.0.105", 54000);
 
 	char buf[4096];
 	char userInput[500];

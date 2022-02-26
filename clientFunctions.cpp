@@ -42,7 +42,7 @@ void faculties(SOCKET sock)
 	do {
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
 		
-		if (faculty.flag == 0) break;
+		if (faculty.flag != 1) break;
 		printf_s("   %d) Name: %s Department: %s Phone no: %-.11d\n",i++, faculty.name, faculty.department, faculty.phone_no);
 
 
