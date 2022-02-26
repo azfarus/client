@@ -7,6 +7,7 @@ SOCKET connectToServer(std::string ipAddress, unsigned int port)
 	if (sock == INVALID_SOCKET)
 	{
 		cerr << "Can't create socket, Err #" << WSAGetLastError() << endl;
+		Sleep(5000);
 		WSACleanup();
 		return (SOCKET)-1;
 	}
@@ -22,6 +23,7 @@ SOCKET connectToServer(std::string ipAddress, unsigned int port)
 	if (connResult == SOCKET_ERROR)
 	{
 		cerr << "Can't connect to server, Err #" << WSAGetLastError() << endl;
+		Sleep(5000);
 		closesocket(sock);
 		WSACleanup();
 		return (SOCKET)-1;
@@ -92,7 +94,7 @@ void introScreen(char* str)
 		printf("                          ||          IUT HELPLINE        ||\n\n");
 		printf("                               %c 1) List faculties\n",arrow[0]);
 		printf("                               %c 2) Search faculties", arrow[1]);
-		Sleep(30);
+		Sleep(3);
 		system("cls");
 	}
 
