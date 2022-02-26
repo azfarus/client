@@ -13,7 +13,8 @@
 typedef struct _Info
 {
 	char name[50], address[100] , department[10];
-	int phone_no , flag ;
+	unsigned long long int phone_no;
+	int flag ;
 	
 
 } info;
