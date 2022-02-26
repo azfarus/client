@@ -94,7 +94,7 @@ void introScreen(char* str)
 		printf("                          ||          IUT HELPLINE        ||\n\n");
 		printf("                               %c 1) List faculties\n",arrow[0]);
 		printf("                               %c 2) Search faculties", arrow[1]);
-		Sleep(3);
+		Sleep(30);
 		system("cls");
 	}
 
