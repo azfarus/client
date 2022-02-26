@@ -51,5 +51,53 @@ void faculties(SOCKET sock)
 
 void introScreen(char* str)
 {
+	
+
+	char c ;
+	unsigned int i = 0 , featureCount= 2;
+	char * arrow = (char*)calloc(featureCount, sizeof(char));
+	
+
+	memset( arrow, ' ', sizeof(char));
+	arrow[i] = '>';
+
+	while (true) {
+		if (_kbhit())
+		{
+			
+			c = _getch();
+			if (c == 'w') i--;
+			if (c == 's') i++;
+			if (i < 0) i = 0;
+			if (i > featureCount - 1) i = featureCount - 1;
+			switch (i)
+			{
+			case 0:
+				strcpy(str, "faculty");
+				break;
+			case 1:
+				strcpy(str, "searchfaculty");
+				break;
+
+			default:
+				break;
+
+			}
+			if (c == 'x') return;
+			memset(arrow, ' ', sizeof(arrow));
+			arrow[i] = '>';
+		}
+
+		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+		printf("                          ||          IUT HELPLINE        ||\n\n");
+		printf("                               %c 1) List faculties\n",arrow[0]);
+		printf("                               %c 2) Search faculties", arrow[1]);
+		Sleep(30);
+		system("cls");
+	}
+
+	
+
+
 
 }

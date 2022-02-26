@@ -24,21 +24,23 @@ void main()
 	SOCKET sock = connectToServer("192.168.0.106", 54000);
 
 	char buf[4096];
-	string userInput;
+	char userInput[500];
+	char control;
 	info siuuu;
+
+	introScreen(userInput);
 
 	do
 	{
 		// Prompt the user for some text
-		cout << "> ";
-		getline(cin, userInput);
+		
 
-		if (userInput.size() > 0)		// Make sure the user has typed in something
-		{
+				// Make sure the user has typed in something
+		
 			// Send the text
-			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
+			int sendResult = send(sock, userInput, sizeof(userInput) + 1, 0);
 
-			if (!strncmp(userInput.c_str(), "faculty", 6))
+			if (!strncmp(userInput, "faculty", 6))
 			{
 				if (sendResult != SOCKET_ERROR)
 				{
@@ -47,11 +49,16 @@ void main()
 				}
 			}
 
-		}
+			printf("Please enter to go back : ");
+		    getchar();
+			introScreen(userInput);
+
+
+		
 			
 		
 
-	} while (userInput.size() > 0);
+	} while (true);
 
 	// Gracefully close down everything
 	closesocket(sock);
