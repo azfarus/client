@@ -13,16 +13,21 @@
 typedef struct _Info
 {
 	char name[50], address[100] , department[10];
-	unsigned long long int phone_no;
+	int phone_no;
 	int flag ;
 	
 
 } info;
 
+typedef struct _emergency {
+	char service[50];
+	int contact, flag;
+} EmergencyServices;
+
 SOCKET connectToServer(std::string ipAddress, unsigned int port);
 void faculties(SOCKET sock);
 void introScreen(char* str);
-
+void Emergency(SOCKET sock);
 
 using namespace std;
 

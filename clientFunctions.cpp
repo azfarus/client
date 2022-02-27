@@ -51,6 +51,23 @@ void faculties(SOCKET sock)
 	return;
 }
 
+void Emergency(SOCKET sock)
+{
+	EmergencyServices service;
+	int byte_recv, i = 1;
+	printf("Emergency Services are: \n");
+
+	do {
+		byte_recv = recv(sock, (char*)&service, sizeof(service), 0);
+
+		if (service.flag != 1) break;
+
+		printf_s(" %d) Service Name: %s Contact no: %.11d\n", i++, service.service, service.contact);
+
+	} while (byte_recv > 0)
+		return;
+}
+
 void introScreen(char* str)
 {
 	
