@@ -41,9 +41,8 @@ void faculties(SOCKET sock)
 	printf("Faculties are: \n");
 	do {
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		
-		if (faculty.flag != 1) break;
-		printf_s("   %d) Name: %s Department: %s Phone no: %-.11d\n",i++, faculty.name, faculty.department, faculty.phone_no);
+		if ((faculty.phone_no) == 0) break;
+		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n",i++, faculty.name, faculty.department, faculty.phone_no);
 
 
 		
@@ -93,7 +92,7 @@ void introScreen(char* str)
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("                          ||          IUT HELPLINE        ||\n\n");
 		printf("                               %c 1) List faculties\n",arrow[0]);
-		printf("                               %c 2) Search faculties", arrow[1]);
+		printf("                               %c 2) Search faculties\n", arrow[1]);
 		Sleep(30);
 		system("cls");
 	}
@@ -102,4 +101,37 @@ void introScreen(char* str)
 
 
 
+}
+
+
+void searchFaculties_client(SOCKET sock)
+{
+	info faculty;
+	int byte_recv, i = 1;
+	char searchTermBuf[128];
+	cout << "Enter name of teacher : "  ;
+
+	scanf("%s", searchTermBuf);
+
+	int sendbytes = send(sock, searchTermBuf, 128, 0);
+	if (sendbytes == 0 || sendbytes == SOCKET_ERROR)
+	{
+		cerr << "FAILED TO SEARCH. RETURNING..." << endl;
+		return;
+	}
+
+
+
+	printf("Results found are: \n");
+	do {
+		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
+
+		if (faculty.phone_no == 0) break;
+		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n", i++, faculty.name, faculty.department, faculty.phone_no);
+
+
+
+	} while (byte_recv > 0);
+	getchar();
+	return;
 }

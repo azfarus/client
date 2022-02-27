@@ -21,7 +21,7 @@ void main()
 	}
 
 
-	SOCKET sock = connectToServer("192.168.0.105", 54000);
+	SOCKET sock = connectToServer(ipaddress, 54000);
 
 	char buf[4096];
 	char userInput[500];
@@ -32,15 +32,11 @@ void main()
 
 	do
 	{
-		// Prompt the user for some text
-		
-
-				// Make sure the user has typed in something
 		
 			// Send the text
 			int sendResult = send(sock, userInput, sizeof(userInput) + 1, 0);
 
-			if (!strncmp(userInput, "faculty", 6))
+			if (!strncmp(userInput, "faculty", 7))
 			{
 				if (sendResult != SOCKET_ERROR)
 				{
@@ -49,7 +45,15 @@ void main()
 				}
 			}
 
-			printf("Please enter to go back : ");
+			else if (!strncmp(userInput, "searchfaculty", 13))
+			{
+				if (sendResult != SOCKET_ERROR)
+				{
+					searchFaculties_client(sock);
+				}
+			}
+
+			printf("Press enter to go back : ");
 		    getchar();
 			introScreen(userInput);
 

@@ -7,6 +7,7 @@
 #include <conio.h>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
+#define ipaddress "192.168.0.106"
 
 #pragma comment (lib, "ws2_32.lib")
 
@@ -22,6 +23,8 @@ typedef struct _Info
 SOCKET connectToServer(std::string ipAddress, unsigned int port);
 void faculties(SOCKET sock);
 void introScreen(char* str);
+void searchFaculties_client(SOCKET sock);
+
 
 
 using namespace std;
