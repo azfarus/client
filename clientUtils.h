@@ -20,8 +20,18 @@ typedef struct _Info
 
 } info;
 
+
+typedef struct _emergency {
+	char service[50];
+	unsigned long long int contact;
+	bool flag;
+} EmergencyServices;
+
+
+
 SOCKET connectToServer(std::string ipAddress, unsigned int port);
 void faculties(SOCKET sock);
+void services(SOCKET sock); //New function for printing services
 void introScreen(char* str);
 void searchFaculties_client(SOCKET sock);
 

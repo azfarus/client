@@ -32,33 +32,64 @@ SOCKET connectToServer(std::string ipAddress, unsigned int port)
 	return sock;
 }
 
+void services(SOCKET sock)
+{
+	EmergencyServices service;
+	int byte_recv, i = 1;
+	/*char dept[10];
+
+	
+	ZeroMemory(dept, 10);*/
+	printf("Faculties are: \n");
+	do {
+		byte_recv = recv(sock, (char*)&service, sizeof(service), MSG_PEEK); 
+		if ((service.contact) == 0)
+		{
+			recv(sock, (char*)&service, sizeof(service), 0);
+			break;
+		}
+		/*if (strcmp(dept,faculty.department))
+		{
+			strcpy(dept, faculty.department);
+			printf("  %4s : \n",dept);
+		}*/
+
+		byte_recv = recv(sock, (char*)&servic, sizeof(service), 0);
+		printf_s("   %3d) Service Name: %20s Contact no: %-11.11u\n",i++, service.service, service.contact);
+
+
+		
+	} while (byte_recv > 0);
+	return;
+}
+
 void faculties(SOCKET sock)
 {
 	info faculty;
 	int byte_recv, i = 1;
 	char dept[10];
 
-	
+
 	ZeroMemory(dept, 10);
 	printf("Faculties are: \n");
 	do {
-		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), MSG_PEEK); 
+		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), MSG_PEEK);
 		if ((faculty.phone_no) == 0)
 		{
 			recv(sock, (char*)&faculty, sizeof(faculty), 0);
 			break;
 		}
-		if (strcmp(dept,faculty.department))
+		if (strcmp(dept, faculty.department))
 		{
 			strcpy(dept, faculty.department);
-			printf("  %4s : \n",dept);
+			printf("  %4s : \n", dept);
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n",i++, faculty.name, faculty.department, faculty.phone_no);
+		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n", i++, faculty.name, faculty.department, faculty.phone_no);
 
 
-		
+
 	} while (byte_recv > 0);
 	return;
 }
@@ -78,7 +109,7 @@ void introScreen(char* str)
 	while (true) {
 		if (_kbhit())
 		{
-			
+			//Loop e add kore nis Help option ta
 			c = _getch();
 			if (c == 'w') i--;
 			if (c == 's') i++;

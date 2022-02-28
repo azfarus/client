@@ -53,6 +53,15 @@ void main()
 				}
 			}
 
+			//Newly Implemented addition
+			else if (!strncmp(userInput, "help", 4))
+			{
+				if (sendResult != SOCKET_ERROR)
+				{
+					services(sock);
+				}
+			}
+
 			printf("Press enter to go back : ");
 		    getchar();
 			introScreen(userInput);
