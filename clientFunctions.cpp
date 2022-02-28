@@ -40,7 +40,7 @@ void services(SOCKET sock)
 
 	
 	ZeroMemory(dept, 10);*/
-	printf("Faculties are: \n");
+	printf("Services are: \n");
 	do {
 		byte_recv = recv(sock, (char*)&service, sizeof(service), MSG_PEEK); 
 		if ((service.contact) == 0)
@@ -54,7 +54,7 @@ void services(SOCKET sock)
 			printf("  %4s : \n",dept);
 		}*/
 
-		byte_recv = recv(sock, (char*)&servic, sizeof(service), 0);
+		byte_recv = recv(sock, (char*)&service, sizeof(service), 0);
 		printf_s("   %3d) Service Name: %20s Contact no: %-11.11u\n",i++, service.service, service.contact);
 
 
