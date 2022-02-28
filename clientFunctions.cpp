@@ -99,7 +99,7 @@ void introScreen(char* str)
 	
 
 	char c ;
-	unsigned int i = 0 , featureCount= 2;
+	unsigned int i = 0 , featureCount= 3;
 	char * arrow = (char*)calloc(featureCount, sizeof(char));
 	
 
@@ -123,7 +123,9 @@ void introScreen(char* str)
 			case 1:
 				strcpy(str, "searchfaculty");
 				break;
-
+			case 2:
+				strcpy(str, "help");
+				break;
 			default:
 				break;
 
@@ -137,7 +139,8 @@ void introScreen(char* str)
 		printf("                          ||          IUT HELPLINE        ||\n\n");
 		printf("                               %c 1) List faculties\n",arrow[0]);
 		printf("                               %c 2) Search faculties\n", arrow[1]);
-		Sleep(30);
+		printf("                               %c 3) Emergency Services\n", arrow[2]);
+		Sleep(150);
 		system("cls");
 	}
 
