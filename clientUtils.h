@@ -7,7 +7,7 @@
 #include <conio.h>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#define ipaddress "192.168.10.101"
+#define ipaddress "192.168.10.102"
 
 #pragma comment (lib, "ws2_32.lib")
 
