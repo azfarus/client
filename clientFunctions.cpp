@@ -94,12 +94,35 @@ void faculties(SOCKET sock)
 	return;
 }
 
+void Portal(SOCKET sock)
+{
+	studentPortal student;
+	int byte_recv, i = 1;
+	
+	printf("Student Details: \n");
+	do {
+		byte_recv = recv(sock, (char*)&student, sizeof(student), MSG_PEEK);
+		if ((student.roll) == 0)
+		{
+			recv(sock, (char*)&student, sizeof(student), 0);
+			break;
+		}
+
+		byte_recv = recv(sock, (char*)&student, sizeof(student), 0);
+		
+		printf_s("   %3d) Roll: %-9.9u\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf", i++, student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+
+
+
+	} while (byte_recv > 0);
+	return;
+}
 void introScreen(char* str)
 {
 	
 
 	char c ;
-	unsigned int i = 0 , featureCount= 3;
+	unsigned int i = 0 , featureCount= 4;
 	char * arrow = (char*)calloc(featureCount, sizeof(char));
 	
 
@@ -126,6 +149,9 @@ void introScreen(char* str)
 			case 2:
 				strcpy(str, "help");
 				break;
+			case 3:
+				strcpy(str, "Portal");
+				break;
 			default:
 				break;
 
@@ -140,6 +166,7 @@ void introScreen(char* str)
 		printf("                               %c 1) List faculties\n",arrow[0]);
 		printf("                               %c 2) Search faculties\n", arrow[1]);
 		printf("                               %c 3) Emergency Services\n", arrow[2]);
+		printf("                               %c 4) Student Portal\n", arrow[3]);
 		Sleep(150);
 		system("cls");
 	}

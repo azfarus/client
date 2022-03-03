@@ -61,6 +61,15 @@ void main()
 					services(sock);
 				}
 			}
+			
+			//Newly Implemented addition
+			else if (!strncmp(userInput, "Portal", 6))
+			{
+				if (sendResult != SOCKET_ERROR)
+				{
+					Portal(sock);
+				}
+			}
 
 			printf("Press enter to go back : ");
 		    getchar();
