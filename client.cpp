@@ -32,53 +32,53 @@ void main()
 
 	do
 	{
-		
-			// Send the text
-			int sendResult = send(sock, userInput, sizeof(userInput) + 1, 0);
 
-			if (!strncmp(userInput, "faculty", 7))
+		// Send the text
+		int sendResult = send(sock, userInput, sizeof(userInput) + 1, 0);
+
+		if (!strncmp(userInput, "faculty", 7))
+		{
+			if (sendResult != SOCKET_ERROR)
 			{
-				if (sendResult != SOCKET_ERROR)
-				{
-					// Wait for response
-					faculties(sock);
-				}
+				// Wait for response
+				faculties(sock);
 			}
+		}
 
-			else if (!strncmp(userInput, "searchfaculty", 13))
+		else if (!strncmp(userInput, "searchfaculty", 13))
+		{
+			if (sendResult != SOCKET_ERROR)
 			{
-				if (sendResult != SOCKET_ERROR)
-				{
-					searchFaculties_client(sock);
-				}
+				searchFaculties_client(sock);
 			}
+		}
 
-			//Newly Implemented addition
-			else if (!strncmp(userInput, "help", 4))
+		//Newly Implemented addition
+		else if (!strncmp(userInput, "help", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
 			{
-				if (sendResult != SOCKET_ERROR)
-				{
-					services(sock);
-				}
+				services(sock);
 			}
-			
-			//Newly Implemented addition
-			else if (!strncmp(userInput, "Portal", 6))
+		}
+
+		//Newly Implemented addition
+		else if (!strncmp(userInput, "Portal", 6))
+		{
+			if (sendResult != SOCKET_ERROR)
 			{
-				if (sendResult != SOCKET_ERROR)
-				{
-					Portal(sock);
-				}
+				Portal(sock);
 			}
+		}
 
-			printf("Press enter to go back : ");
-		    getchar();
-			introScreen(userInput);
+		printf("Press enter to go back : ");
+		getchar();
+		introScreen(userInput);
 
 
-		
-			
-		
+
+
+
 
 	} while (true);
 

@@ -38,11 +38,11 @@ void services(SOCKET sock)
 	int byte_recv, i = 1;
 	/*char dept[10];
 
-	
+
 	ZeroMemory(dept, 10);*/
 	printf("Services are: \n");
 	do {
-		byte_recv = recv(sock, (char*)&service, sizeof(service), MSG_PEEK); 
+		byte_recv = recv(sock, (char*)&service, sizeof(service), MSG_PEEK);
 		if ((service.contact) == 0)
 		{
 			recv(sock, (char*)&service, sizeof(service), 0);
@@ -55,10 +55,10 @@ void services(SOCKET sock)
 		}*/
 
 		byte_recv = recv(sock, (char*)&service, sizeof(service), 0);
-		printf_s("   %3d) Service Name: %20s Contact no: %-11.11u\n",i++, service.service, service.contact);
+		printf_s("   %3d) Service Name: %20s Contact no: %-11.11llu\n", i++, service.service, service.contact);
 
 
-		
+
 	} while (byte_recv > 0);
 	return;
 }
@@ -86,7 +86,7 @@ void faculties(SOCKET sock)
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n", i++, faculty.name, faculty.department, faculty.phone_no);
+		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11llu\n", i++, faculty.name, faculty.department, faculty.phone_no);
 
 
 
@@ -98,8 +98,8 @@ void Portal(SOCKET sock)
 {
 	studentPortal student;
 	int byte_recv, i = 1;
-	
-	printf("Student Details: \n");
+
+	printf("Student Details: \n\n");
 	do {
 		byte_recv = recv(sock, (char*)&student, sizeof(student), MSG_PEEK);
 		if ((student.roll) == 0)
@@ -109,8 +109,8 @@ void Portal(SOCKET sock)
 		}
 
 		byte_recv = recv(sock, (char*)&student, sizeof(student), 0);
-		
-		printf_s("   %3d) Roll: %-9.9u\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf", i++, student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+
+		printf_s(" Password: %llu\n Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.hash, student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
 
 
 
@@ -119,14 +119,14 @@ void Portal(SOCKET sock)
 }
 void introScreen(char* str)
 {
-	
 
-	char c ;
-	unsigned int i = 0 , featureCount= 4;
-	char * arrow = (char*)calloc(featureCount, sizeof(char));
-	
 
-	memset( arrow, ' ', sizeof(char));
+	char c;
+	unsigned int i = 0, featureCount = 4;
+	char* arrow = (char*)calloc(featureCount, sizeof(char));
+
+
+	memset(arrow, ' ', sizeof(char));
 	arrow[i] = '>';
 
 	while (true) {
@@ -163,7 +163,7 @@ void introScreen(char* str)
 
 		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
 		printf("                          ||          IUT HELPLINE        ||\n\n");
-		printf("                               %c 1) List faculties\n",arrow[0]);
+		printf("                               %c 1) List faculties\n", arrow[0]);
 		printf("                               %c 2) Search faculties\n", arrow[1]);
 		printf("                               %c 3) Emergency Services\n", arrow[2]);
 		printf("                               %c 4) Student Portal\n", arrow[3]);
@@ -171,7 +171,7 @@ void introScreen(char* str)
 		system("cls");
 	}
 
-	
+
 
 
 
@@ -182,8 +182,8 @@ void searchFaculties_client(SOCKET sock)
 {
 	info faculty;
 	int byte_recv, i = 1;
-	char searchTermBuf[128] , dept[10];
-	cout << "Enter name of teacher : " <<endl ;
+	char searchTermBuf[128], dept[10];
+	cout << "Enter name of teacher : " << endl;
 
 	scanf("%s", searchTermBuf);
 

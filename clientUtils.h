@@ -13,10 +13,10 @@
 
 typedef struct _Info
 {
-	char name[50], address[100] , department[10];
+	char name[50], address[100], department[10];
 	unsigned long long int phone_no;
-	int flag ;
-	
+	int flag;
+
 
 } info;
 
@@ -28,6 +28,7 @@ typedef struct _emergency {
 } EmergencyServices;
 
 typedef struct _student {
+	unsigned long long hash;
 	unsigned long long roll;
 	char name[100], email[50], father[100], mother[100], dept[4];
 	double CG;
