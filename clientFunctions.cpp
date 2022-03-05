@@ -1,5 +1,8 @@
 #include "clientUtils.h"
 
+
+
+
 SOCKET connectToServer(std::string ipAddress, unsigned int port)
 {
 	// Create socket
@@ -117,16 +120,16 @@ void Portal(SOCKET sock)
 	} while (byte_recv > 0);
 	return;
 }
-void introScreen(char* str)
+void introScreen(char* str , int log_Stat)
 {
 
 
 	char c;
-	unsigned int i = 0, featureCount = 4;
+    int i = 0, featureCount = 4;
 	char* arrow = (char*)calloc(featureCount, sizeof(char));
 
-
-	memset(arrow, ' ', sizeof(char));
+	if(log_Stat)  featureCount = 5;
+	memset(arrow, ' ', featureCount );
 	arrow[i] = '>';
 
 	while (true) {
@@ -137,7 +140,7 @@ void introScreen(char* str)
 			if (c == 'w') i--;
 			if (c == 's') i++;
 			if (i < 0) i = 0;
-			if (i > featureCount - 1) i = featureCount - 1;
+			if (i >= featureCount - 1) i = featureCount - 1;
 			switch (i)
 			{
 			case 0:
@@ -149,24 +152,33 @@ void introScreen(char* str)
 			case 2:
 				strcpy(str, "help");
 				break;
-			case 3:
+			case 4:
 				strcpy(str, "Portal");
+				break;
+			case 3:
+				strcpy(str, "login");
 				break;
 			default:
 				break;
 
 			}
 			if (c == 'x') return;
-			memset(arrow, ' ', sizeof(arrow));
+			memset(arrow, ' ', featureCount );
 			arrow[i] = '>';
 		}
 
-		printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-		printf("                          ||          IUT HELPLINE        ||\n\n");
-		printf("                               %c 1) List faculties\n", arrow[0]);
-		printf("                               %c 2) Search faculties\n", arrow[1]);
-		printf("                               %c 3) Emergency Services\n", arrow[2]);
-		printf("                               %c 4) Student Portal\n", arrow[3]);
+				      printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
+				      printf("                          ||          IUT HELPLINE        ||\n\n");
+					  printf("                               %c 1) List faculties\n", arrow[0]);
+					  printf("                               %c 2) Search faculties\n", arrow[1]);
+					  printf("                               %c 3) Emergency Services\n", arrow[2]);
+					  printf("                               %c 4) Login Window\n", arrow[3]);
+					  if (log_Stat)
+					  {
+						  printf("                               %c 5) Student Portal\n", arrow[4]);
+						 
+					  }
+		
 		Sleep(150);
 		system("cls");
 	}
@@ -211,11 +223,75 @@ void searchFaculties_client(SOCKET sock)
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11u\n", i++, faculty.name, faculty.department, faculty.phone_no);
+		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11llu\n", i++, faculty.name, faculty.department, faculty.phone_no);
 
 
 
 	} while (byte_recv > 0);
 	getchar();
 	return;
+}
+
+unsigned long long Hash(const char* str)
+{
+	unsigned long long x = 5381;
+	unsigned long long y = 0;
+	for (int i = 0; str[i] != '\0'; i++)
+	{
+		x = x * 33 + str[i];
+	}
+	return x;
+}
+
+void login_client(SOCKET sock , int * log_Stat)
+{
+	logininfo log;
+	char password[100];
+	char success_status;
+
+	std::cout << "\n\n\nPlease Enter your ID and password to log in : \n";
+	std::cout << "ID : ";
+	cin >> log.id; getchar();
+	cout << "Password : ";
+	scanf("%s", password); getchar();
+
+	log.hash = Hash(password);
+
+	int sendbytes = send(sock, (char*)&log, sizeof(logininfo), 0);
+	if (sendbytes == 0)
+	{
+		cout << "Error couldnt LOGIN . Server Disconnected.";
+		return;
+	}
+
+	int recv_bytes = recv(sock, &success_status, sizeof(success_status), 0);
+	if (recv_bytes == 0)
+	{
+		cout << "Error couldnt LOGIN . Server Disconnected.";
+		return;
+	}
+
+
+	if (success_status == 'S')
+	{
+		cout << "Successfully Logged in\n";
+		*log_Stat = 1;
+		Sleep(2000);
+	}
+	else if (success_status == 'F')
+	{
+		cout << "Check your credentials, login failed.\n";
+		 *log_Stat = 0;
+		Sleep(2000);
+	}
+	else
+	{
+		cout << "Couldnt connect" << endl;
+	}
+	return;
+
+
+
+
+
 }

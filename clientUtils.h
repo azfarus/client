@@ -34,14 +34,33 @@ typedef struct _student {
 	double CG;
 }studentPortal;
 
+typedef struct _logininfo
+{
+	unsigned long long id;
+	unsigned long long hash;
+}logininfo;
+
+
+
+
 SOCKET connectToServer(std::string ipAddress, unsigned int port);
 void faculties(SOCKET sock);
 void services(SOCKET sock); //New function for printing services
-void introScreen(char* str);
+void introScreen(char* str, int log_Stat);
 void searchFaculties_client(SOCKET sock);
-void Portal(SOCKET sock); //New function addded
+void Portal(SOCKET sock); 
+void login_client(SOCKET sock , int *log_Stat);//New function addded
+
+unsigned long long Hash(const char* str);
+
+
+
 
 
 
 using namespace std;
+
+
+
+
 

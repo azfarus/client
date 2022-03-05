@@ -4,6 +4,8 @@
 #include "clientUtils.h"
 #pragma comment(lib, "ws2_32.lib")
 
+int log_Stat = 0;
+
 
 
 using namespace std;
@@ -28,7 +30,7 @@ void main()
 	char control;
 	info siuuu;
 
-	introScreen(userInput);
+	introScreen(userInput , log_Stat);
 
 	do
 	{
@@ -41,6 +43,7 @@ void main()
 			if (sendResult != SOCKET_ERROR)
 			{
 				// Wait for response
+				std::cout << ">>>>>  " << log_Stat<<endl;
 				faculties(sock);
 			}
 		}
@@ -70,10 +73,17 @@ void main()
 				Portal(sock);
 			}
 		}
+		else if (!strncmp(userInput, "login", 6))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				login_client(sock , &log_Stat);
+			}
+		}
 
 		printf("Press enter to go back : ");
 		getchar();
-		introScreen(userInput);
+		introScreen(userInput , log_Stat);
 
 
 
@@ -86,3 +96,6 @@ void main()
 	closesocket(sock);
 	WSACleanup();
 }
+
+
+
