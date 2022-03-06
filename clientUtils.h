@@ -32,6 +32,7 @@ typedef struct _student {
 	unsigned long long roll;
 	char name[100], email[50], father[100], mother[100], dept[4];
 	double CG;
+	long long int balance;
 }studentPortal;
 
 typedef struct _logininfo
@@ -52,6 +53,7 @@ void Portal(SOCKET sock);
 void login_client(SOCKET sock , int *log_Stat);//New function addded
 
 unsigned long long Hash(const char* str);
+void TicketPrint(SOCKET sock);
 
 
 

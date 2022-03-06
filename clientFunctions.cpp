@@ -128,7 +128,7 @@ void introScreen(char* str , int log_Stat)
     int i = 0, featureCount = 4;
 	char* arrow = (char*)calloc(featureCount, sizeof(char));
 
-	if(log_Stat)  featureCount = 5;
+	if(log_Stat)  featureCount = 6;
 	memset(arrow, ' ', featureCount );
 	arrow[i] = '>';
 
@@ -152,11 +152,14 @@ void introScreen(char* str , int log_Stat)
 			case 2:
 				strcpy(str, "help");
 				break;
+			case 3:
+				strcpy(str, "login");
+				break;
 			case 4:
 				strcpy(str, "Portal");
 				break;
-			case 3:
-				strcpy(str, "login");
+			case 5:
+				strcpy(str, "cafe");
 				break;
 			default:
 				break;
@@ -176,6 +179,7 @@ void introScreen(char* str , int log_Stat)
 					  if (log_Stat)
 					  {
 						  printf("                               %c 5) Student Portal\n", arrow[4]);
+						  printf("			       %c 6) Buy Cafe Tickets\n", arrow[5]);
 						 
 					  }
 		
@@ -234,11 +238,13 @@ void searchFaculties_client(SOCKET sock)
 
 unsigned long long Hash(const char* str)
 {
-	unsigned long long x = 5381;
-	unsigned long long y = 0;
+	unsigned long long x = 0;
+
 	for (int i = 0; str[i] != '\0'; i++)
 	{
-		x = x * 33 + str[i];
+		x = str[i] + (x << 6) + (x << 16) - x; 
+		//or multiplying by 65599
+		//SDBM hash
 	}
 	return x;
 }
@@ -294,4 +300,31 @@ void login_client(SOCKET sock , int * log_Stat)
 
 
 
+}
+
+void TicketPrint(SOCKET sock)
+{
+	printf("Purchase: \n 1) Lunch Ticket\n 2) Dinner Ticket\n");
+	int choice;
+	cout << " >> ";
+	cin >> choice;
+	if (choice == 1)
+	{
+		char buff = 'L';
+
+		send(sock, &buff, sizeof(buff), 0);
+	}
+	else if (choice == 2)
+	{
+		char buff = 'S';
+
+		send(sock, &buff, sizeof(buff), 0);
+	}
+	else
+	{
+		cerr << "Invalid Choice\n";
+		return;
+	}
+	getchar();
+	
 }

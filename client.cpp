@@ -80,6 +80,13 @@ void main()
 				login_client(sock , &log_Stat);
 			}
 		}
+		else if (!strncmp(userInput, "cafe", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				TicketPrint(sock);
+			}
+		}
 
 		printf("Press enter to go back : ");
 		getchar();
