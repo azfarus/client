@@ -371,7 +371,7 @@ void admission(SOCKET sock)
 		printf("SSC Equivalent: \n");
 		printf("--------------\n");
 		printf("1) Student From only Science Group can Apply\n");
-		printf("2) Minimum GPA 4.50 out of 5.00\n");
+		printf("2) Minimum GPA 4.50 out of 5.00\n\n");
 		printf("HSC Equivalent: \n");
 		printf("--------------\n");
 		printf("1) Student From Only Science Group Can Apply\n");
