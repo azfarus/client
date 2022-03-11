@@ -125,10 +125,10 @@ void introScreen(char* str , int log_Stat)
 
 
 	char c;
-    int i = 0, featureCount = 4;
+    int i = 0, featureCount = 5;
 	char* arrow = (char*)calloc(featureCount, sizeof(char));
 
-	if(log_Stat)  featureCount = 6;
+	if(log_Stat)  featureCount = 7;
 	memset(arrow, ' ', featureCount );
 	arrow[i] = '>';
 
@@ -156,9 +156,12 @@ void introScreen(char* str , int log_Stat)
 				strcpy(str, "login");
 				break;
 			case 4:
-				strcpy(str, "Portal");
+				strcpy(str, "admission");
 				break;
 			case 5:
+				strcpy(str, "Portal");
+				break;
+			case 6: 
 				strcpy(str, "cafe");
 				break;
 			default:
@@ -176,11 +179,11 @@ void introScreen(char* str , int log_Stat)
 					  printf("                               %c 2) Search faculties\n", arrow[1]);
 					  printf("                               %c 3) Emergency Services\n", arrow[2]);
 					  printf("                               %c 4) Login Window\n", arrow[3]);
+					  printf("			       %c 5) Admission Portal\n", arrow[4]);
 					  if (log_Stat)
 					  {
-						  printf("                               %c 5) Student Portal\n", arrow[4]);
-						  printf("			       %c 6) Buy Cafe Tickets\n", arrow[5]);
-						 
+						  printf("                               %c 6) Student Portal\n", arrow[5]);
+						  printf("			       %c 7) Buy Cafe Tickets\n", arrow[6]);
 					  }
 		
 		Sleep(150);
@@ -327,4 +330,157 @@ void TicketPrint(SOCKET sock)
 	}
 	getchar();
 	
+}
+
+void admission(SOCKET sock)
+{
+	printf("Welcome to the Admission Portal of IUT\n");
+	printf("1) Programmes and Seats\n");
+	printf("2) Minimum Requirements\n");
+	printf("3) Apply Now!\n");
+
+	int choice;
+	cout << " >> ";
+	cin >> choice;
+
+	if (choice == 1)
+	{
+		system("cls");
+		printf("        IUT PROGRAMMES   Available Seats \n");
+		printf("	----------------------------------\n");
+		printf("          1)CSE\t\t  --> 120 Seats \n");
+		printf("          2)EEE\t\t  --> 180 Seats \n");
+		printf("          3)ME \t\t  --> 120 Seats \n");
+		printf("          4)SWE\t\t  -->  60 Seats \n");
+		printf("          5)CEE\t\t  --> 120 Seats \n");
+		printf("          6)BTM\t\t  -->  60 Seats \n");
+		printf("          7)IPE\t\t  -->  60 Seats \n");
+
+		getchar();
+		return;
+	}
+
+	else if (choice == 2)
+	{
+		system("cls");
+
+		printf("	Minimum Requirements For Admission:\n");
+		printf("	-----------------------------------\n\n");
+		printf("Student From Host Country:\n");
+		printf("--------------------------\n\n");
+		printf("SSC Equivalent: \n");
+		printf("--------------\n");
+		printf("1) Student From only Science Group can Apply\n");
+		printf("2) Minimum GPA 4.50 out of 5.00\n");
+		printf("HSC Equivalent: \n");
+		printf("--------------\n");
+		printf("1) Student From Only Science Group Can Apply\n");
+		printf("2) Minimum GPA 4.50 out of 5.00\n");
+		printf("3) Must have A+ grade in Following Subjects:\n");
+		printf("\ti)   Physics\n");
+		printf("\tii)  Chemistry\n");
+		printf("\tiii) Mathematics\n");
+		printf("4) Must have A grade in Following Subject:\n");
+		printf("\ti)   English\n");
+
+		getchar();
+		return;
+		
+	}
+
+	else if (choice == 3)
+	{
+		system("cls");
+		printf("\t\tADMISSION APPLICATION\n");
+		printf("\t\t---------------------\n");
+
+		double GPA_SSC, GPA_HSC;
+		long long int roll_SSC, roll_HSC;
+		string grade_PHY, grade_CHEM, grade_MATHS, grade_ENGLISH;
+		string name, Father, Mother, Address, School, College;
+
+		cout << "Enter Your SSC GPA: \n >> ";
+		cin >> GPA_SSC;
+		if (GPA_SSC < 0 || GPA_SSC > 5)
+		{
+			cerr << "Invalid Input\n";
+			getchar();
+			return;
+		}
+
+		cout << "Enter Your HSC GPA: \n >> ";
+		cin >> GPA_HSC;
+		if (GPA_HSC < 0 || GPA_HSC > 5)
+		{
+			cerr << "Invalid Input\n";
+			getchar();
+			return;
+		}
+
+		cout << "Enter your grades for the following subjects:\n";
+		cout << "Physics >> ";
+		cin >> grade_PHY;
+
+		cout << "Chemistry >> ";
+		cin >> grade_CHEM;
+
+		cout << "Mathematics >> ";
+		cin >> grade_MATHS;
+
+		cout << "English >> ";
+		cin >> grade_ENGLISH;
+
+		cout << "SSC roll number: ";
+		cin >> roll_SSC;
+
+		cout << "HSC roll number: ";
+		cin >> roll_HSC;
+
+		//Checking eligibility
+
+		if (GPA_HSC >= 4.50 && GPA_SSC >= 4.50)
+		{
+			if (grade_PHY == "A+" && grade_CHEM == "A+" && grade_MATHS == "A+" && (grade_ENGLISH == "A+" || grade_ENGLISH == "A"))
+			{
+				system("cls");
+				cout << "Congratulations you are Eligible For Admission Application\n";
+				cout << "Enter Student name: ";
+				getchar();
+				getline(cin, name);
+
+				cout << "Enter Father's name: ";
+				getline(cin, Father);
+
+				cout << "Enter Mother's name: ";
+				getline(cin, Mother);
+
+				cout << "Enter Address: ";
+				getline(cin, Address);
+				
+				cout << "Enter School: ";
+				getline(cin, School);
+
+				cout << "Enter College: ";
+				getline(cin, College);
+				printf("REGISTRATION COMPLETED! Press any key to see details\n");
+				getchar();
+
+				system("cls");
+
+				printf("\t\tDETAILS OF REGISTERED STUDENT\n");
+				printf("\t\t-----------------------------\n");
+
+				cout << "Student Name : " << name << endl;
+				cout << "Father's Name: " << Father << endl;
+				cout << "Mother's Name: " << Mother << endl;
+				cout << "Address      : " << Address << endl;
+				cout << "School       : " << School << endl;
+				cout << "College      : " << College << endl;
+				cout << "SSC Roll     : " << roll_SSC << endl;
+				cout << "HSC roll     : " << roll_HSC << endl;
+				getchar();
+				return;
+			}
+		}
+	}
 }

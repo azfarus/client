@@ -56,7 +56,8 @@ unsigned long long Hash(const char* str);
 void TicketPrint(SOCKET sock);
 
 
-
+//New Function
+void admission(SOCKET sock);
 
 
 

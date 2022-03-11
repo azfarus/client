@@ -87,6 +87,13 @@ void main()
 				TicketPrint(sock);
 			}
 		}
+		else if (!strncmp(userInput, "admission", 9))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				admission(sock);
+			}
+		}
 
 		printf("Press enter to go back : ");
 		getchar();
