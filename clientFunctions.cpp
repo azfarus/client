@@ -316,16 +316,47 @@ void TicketPrint(SOCKET sock)
 		char buff = 'L';
 
 		send(sock, &buff, sizeof(buff), 0);
+
+		recv(sock, &buff, sizeof(buff), 0);
+
+		if (buff == 'N')
+		{
+			cout << "\nYou don't have sufficient balance.\n";
+			getchar();
+			return;
+		}
+		else if (buff == 'Y')
+		{
+			cout << "\nYour Lunch ticket has been purchased successfully\n";
+			getchar();
+			return;
+		}
 	}
 	else if (choice == 2)
 	{
 		char buff = 'S';
 
 		send(sock, &buff, sizeof(buff), 0);
+		recv(sock, &buff, sizeof(buff), 0);
+
+		if (buff == 'N')
+		{
+			cout << "\nYou don't have sufficient balance.\n";
+			getchar();
+			return;
+		}
+		else if (buff == 'Y')
+		{
+			cout << "\nYour Dinner ticket has been purchased successfully\n";
+			getchar();
+			return; 
+		}
+
 	}
 	else
 	{
 		cerr << "Invalid Choice\n";
+		getchar();
 		return;
 	}
 	getchar();
@@ -481,6 +512,20 @@ void admission(SOCKET sock)
 				getchar();
 				return;
 			}
+			else
+			{
+				system("cls");
+				cerr << "Sorry, you do not meet the minimum requirement of subject grades.\n";
+				getchar();
+				return;
+			}
+		}
+		else
+		{
+			system("cls");
+			cerr << "Sorry, you do not meet the minimum requirement of SSC and HSC GPA.\n";
+			getchar();
+			return;
 		}
 	}
 }
