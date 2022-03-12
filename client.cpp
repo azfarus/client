@@ -94,6 +94,13 @@ void main()
 				admission(sock);
 			}
 		}
+		else if (!strncmp(userInput, "chat", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				chat(sock);
+			}
+		}
 
 		printf("Press enter to go back : ");
 		getchar();

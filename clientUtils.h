@@ -59,6 +59,8 @@ void TicketPrint(SOCKET sock);
 //New Function
 void admission(SOCKET sock);
 
+void chat(SOCKET sock);
+
 
 
 using namespace std;

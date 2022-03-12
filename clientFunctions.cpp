@@ -125,10 +125,10 @@ void introScreen(char* str , int log_Stat)
 
 
 	char c;
-    int i = 0, featureCount = 5;
+    int i = 0, featureCount = 6;
 	char* arrow = (char*)calloc(featureCount, sizeof(char));
 
-	if(log_Stat)  featureCount = 7;
+	if(log_Stat)  featureCount = 8;
 	memset(arrow, ' ', featureCount );
 	arrow[i] = '>';
 
@@ -159,9 +159,12 @@ void introScreen(char* str , int log_Stat)
 				strcpy(str, "admission");
 				break;
 			case 5:
+				strcpy(str, "chat");
+				break;
+			case 6:
 				strcpy(str, "Portal");
 				break;
-			case 6: 
+			case 7: 
 				strcpy(str, "cafe");
 				break;
 			default:
@@ -180,10 +183,11 @@ void introScreen(char* str , int log_Stat)
 					  printf("                               %c 3) Emergency Services\n", arrow[2]);
 					  printf("                               %c 4) Login Window\n", arrow[3]);
 					  printf("			       %c 5) Admission Portal\n", arrow[4]);
+					  printf("			       %c 6) Chat with a Virtual Assistant\n", arrow[5]);
 					  if (log_Stat)
 					  {
-						  printf("                               %c 6) Student Portal\n", arrow[5]);
-						  printf("			       %c 7) Buy Cafe Tickets\n", arrow[6]);
+						  printf("                               %c 7) Student Portal\n", arrow[6]);
+						  printf("			       %c 8) Buy Cafe Tickets\n", arrow[7]);
 					  }
 		
 		Sleep(150);
@@ -528,4 +532,20 @@ void admission(SOCKET sock)
 			return;
 		}
 	}
+}
+
+void chat(SOCKET sock)
+{
+	string buff;
+	do {
+
+		cout << "Client >> ";
+		getline(cin, buff);
+
+		send(sock, (char*)&buff, sizeof(buff), 0);
+		
+		recv(sock, (char*)&buff, sizeof(buff), 0);
+		cout << "Server >> " << buff << endl;
+
+	} while (strncmp((char*)&buff, "Bye", 3) != 0);
 }
