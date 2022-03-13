@@ -543,6 +543,15 @@ void chat(SOCKET sock)
 		cout << "client >> ";
 		cin.getline(buff, sizeof(buff));
 
+		if (!strncmp(buff, "bye", 3))
+		{
+			send(sock, (char*)&buff, sizeof(buff), 0);
+
+			cout << "Terminating chat shortly...." << endl;
+
+			return;
+		}
+
 		send(sock, (char*)&buff, sizeof(buff), 0);
 
 		recv(sock, (char*)&buff, sizeof(buff), 0);
