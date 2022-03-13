@@ -536,16 +536,18 @@ void admission(SOCKET sock)
 
 void chat(SOCKET sock)
 {
-	string buff;
-	do {
+	char buff[500];
 
-		cout << "Client >> ";
-		getline(cin, buff);
+	while (true)
+	{
+		cout << "client >> ";
+		cin.getline(buff, sizeof(buff));
 
 		send(sock, (char*)&buff, sizeof(buff), 0);
-		
-		recv(sock, (char*)&buff, sizeof(buff), 0);
-		cout << "Server >> " << buff << endl;
 
-	} while (strncmp((char*)&buff, "Bye", 3) != 0);
+		recv(sock, (char*)&buff, sizeof(buff), 0);
+		cout << "server >> " << buff << endl;
+	}
+
+	return;
 }
