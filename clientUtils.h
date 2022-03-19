@@ -5,6 +5,7 @@
 #include <string>
 #include <Windows.h>
 #include <conio.h>
+#include <algorithm>
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define ipaddress "127.0.0.1"

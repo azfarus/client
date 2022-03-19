@@ -467,6 +467,13 @@ void admission(SOCKET sock)
 		cout << "HSC roll number: ";
 		cin >> roll_HSC;
 
+		//transform to lowercase
+		
+		transform(grade_CHEM.begin(), grade_CHEM.end(), grade_CHEM.begin(), ::toupper);
+		transform(grade_ENGLISH.begin(), grade_ENGLISH.end(), grade_ENGLISH.begin(), ::toupper);
+		transform(grade_MATHS.begin(), grade_MATHS.end(), grade_MATHS.begin(), ::toupper);
+		transform(grade_PHY.begin(), grade_PHY.end(), grade_PHY.begin(), toupper);
+
 		//Checking eligibility
 
 		if (GPA_HSC >= 4.50 && GPA_SSC >= 4.50)
