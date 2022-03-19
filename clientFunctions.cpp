@@ -176,8 +176,8 @@ void introScreen(char* str , int log_Stat)
 			arrow[i] = '>';
 		}
 
-				      printf("\n\n\n\n\n\n\n\n\n\n\n\n\n");
-				      printf("                          ||          IUT HELPLINE        ||\n\n");
+				      printf("\n\n\n\n\n\n\n\n\n\n\n");
+				      printf("                          ||      IUT Virtual Assistant   ||\n\n");
 					  printf("                               %c 1) List faculties\n", arrow[0]);
 					  printf("                               %c 2) Search faculties\n", arrow[1]);
 					  printf("                               %c 3) Emergency Services\n", arrow[2]);
@@ -200,6 +200,62 @@ void introScreen(char* str , int log_Stat)
 
 }
 
+void introScreen2(char* str, int log_stat)
+{
+
+	sf::RenderWindow win(sf::VideoMode(1280, 720), "Virtual Assistant");
+	Button search, list, adms, cafe, chat, login, stdportal, emergency;
+
+	system("cls");
+	list.create(xthresh, ythresh + 80 * 0, 200, 80, "search2.png", "search1.png", "search3.png");
+	search.create(xthresh, ythresh  + 80 * 1 + 10, 200, 80, "list2.png", "list1.png", "list3.png");
+	adms.create(xthresh, ythresh + 80 * 2 +20, 200, 80, "adms2.png", "adms1.png", "adms3.png");
+	emergency.create(xthresh, ythresh + 80 * 3+ 30, 200 , 80, "emergency2.png", "emergency1.png", "emergency3.png");
+
+	chat.create(xthresh+210, ythresh + 80 * 0, 200, 80, "chat2.png", "chat1.png", "chat3.png");
+	login.create(xthresh+210, ythresh + 80 * 1+ 10, 200, 80, "login2.png", "login1.png", "login3.png");
+	stdportal.create(xthresh+210, ythresh + 80 * 2 +20, 200, 80, "stdportal2.png", "stdportal1.png", "stdportal3.png");
+	cafe.create(xthresh+210, ythresh + 80 * 3 +30, 200, 80, "cafe2.png", "cafe1.png", "cafe3.png");
+
+
+	while (win.isOpen())
+	{
+		sf::Event eve;
+		while (win.pollEvent(eve))
+		{
+			search.onButton(win, str, "searchfaculty");
+			list.onButton(win, str,"faculty" );
+			adms.onButton(win, str, "admission");
+			emergency.onButton(win, str, "help");
+
+			chat.onButton(win, str,"chat"  );
+			if (log_stat == 1)
+			{
+				login.onButton(win, str, "login");
+				stdportal.onButton(win, str, "Portal");
+				cafe.onButton(win, str, "cafe");
+			}
+			if (eve.type == sf::Event::Closed)
+			{
+				win.close();
+				introScreen(str, log_stat);
+			}
+
+
+		}
+		win.clear(sf::Color::Black);
+		search.drawButton(win);
+		list.drawButton(win);
+		adms.drawButton(win);
+		emergency.drawButton(win);
+		chat.drawButton(win);
+		login.drawButton(win);
+		stdportal.drawButton(win);
+		cafe.drawButton(win);
+
+		win.display();
+	}
+}
 
 void searchFaculties_client(SOCKET sock)
 {

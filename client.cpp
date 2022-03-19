@@ -1,6 +1,3 @@
-#include <iostream>
-#include <string>
-#include <WS2tcpip.h>
 #include "clientUtils.h"
 #pragma comment(lib, "ws2_32.lib")
 
@@ -22,7 +19,7 @@ void main()
 		return;
 	}
 
-
+	
 	SOCKET sock = connectToServer(ipaddress, 54000);
 
 	char buf[4096];
@@ -30,7 +27,9 @@ void main()
 	char control;
 	info siuuu;
 
-	introScreen(userInput , log_Stat);
+	
+
+	introScreen2(userInput , log_Stat);
 
 	do
 	{
@@ -104,7 +103,7 @@ void main()
 
 		printf("Press enter to go back : ");
 		getchar();
-		introScreen(userInput , log_Stat);
+		introScreen2(userInput , log_Stat);
 
 
 

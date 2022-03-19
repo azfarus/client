@@ -1,15 +1,91 @@
-#pragma once
-#pragma once
+#include <SFML/Graphics.hpp>
 #include <iostream>
 #include <WS2tcpip.h>
 #include <string>
 #include <Windows.h>
 #include <conio.h>
 
+
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
 #define ipaddress "127.0.0.1"
+#define xthresh 450
+#define ythresh 200
 
 #pragma comment (lib, "ws2_32.lib")
+
+class Button {
+public:
+	int buttpos_x, buttpos_y;
+	int buttwidth, buttheight;
+	sf::RectangleShape butt;
+	sf::Texture n, f, p, jama;
+
+
+	void create(int x, int y, int w, int h , std::string Nn, std::string Ff, std::string Pp)
+	{
+		butt.setSize(sf::Vector2f(w, h));
+
+		//butt.setOrigin(sf::Vector2f(w / 2.0, h / 2.0));
+		butt.setPosition(sf::Vector2f(x, y));
+		buttpos_x = x; buttpos_y = y;
+		buttwidth = w; buttheight = h;
+		n.loadFromFile(Nn);
+		f.loadFromFile(Ff);
+		p.loadFromFile(Pp);
+		butt.setTexture(&n);
+
+	}
+	int onButton(sf::RenderWindow& window , char * userInput , const char * set)
+	{
+		sf::Vector2i mousepos(sf::Mouse::getPosition(window));
+		int mouse_x = mousepos.x;
+		int mouse_y = mousepos.y;
+
+		if ((buttpos_x < mouse_x && buttpos_x + buttwidth > mouse_x) && (buttpos_y < mouse_y && buttpos_y + buttheight > mouse_y))
+		{
+			butt.setTexture(&f);
+			//std::cout << "Button hovering\n";
+			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
+			{
+
+				butt.setTexture(&p);
+				strcpy(userInput, set);
+				window.draw(butt);
+				window.display();
+				printf("\a");
+				Sleep(200);
+				window.close();
+				
+				return 2;
+			}
+			return 1;
+		}
+		else
+		{
+			butt.setTexture(&n);
+			return 0;
+		}
+
+
+	}
+
+	void setTexture(std::string filename)
+	{
+
+		if (!jama.loadFromFile(filename))
+		{
+			std::cout << "Failed to load texture\n";
+		}
+		butt.setTexture(&jama);
+		return;
+
+	}
+	void drawButton(sf::RenderWindow& window)
+	{
+		window.draw(butt);
+	}
+};
+
 
 typedef struct _Info
 {
@@ -51,7 +127,7 @@ void introScreen(char* str, int log_Stat);
 void searchFaculties_client(SOCKET sock);
 void Portal(SOCKET sock); 
 void login_client(SOCKET sock , int *log_Stat);//New function addded
-
+void introScreen2(char* str, int log_stat);
 unsigned long long Hash(const char* str);
 void TicketPrint(SOCKET sock);
 
