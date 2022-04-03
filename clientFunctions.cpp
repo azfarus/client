@@ -227,11 +227,13 @@ void introScreen2(char* str, int log_stat)
 			list.onButton(win, str,"faculty" );
 			adms.onButton(win, str, "admission");
 			emergency.onButton(win, str, "help");
-
+			login.onButton(win, str, "login");
 			chat.onButton(win, str,"chat"  );
+
+
 			if (log_stat == 1)
 			{
-				login.onButton(win, str, "login");
+				
 				stdportal.onButton(win, str, "Portal");
 				cafe.onButton(win, str, "cafe");
 			}
