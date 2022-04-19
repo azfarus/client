@@ -202,7 +202,7 @@ void introScreen(char* str , int log_Stat)
 
 void introScreen2(char* str, int log_stat)
 {
-
+	//ei dekh changes
 	sf::RenderWindow win(sf::VideoMode(1280, 720), "Virtual Assistant");
 	Button search, list, adms, cafe, chat, login, stdportal, emergency;
 
