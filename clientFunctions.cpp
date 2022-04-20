@@ -97,6 +97,7 @@ void faculties(SOCKET sock)
 	return;
 }
 
+
 void Portal(SOCKET sock)
 {
 	studentPortal student;
@@ -113,7 +114,7 @@ void Portal(SOCKET sock)
 
 		byte_recv = recv(sock, (char*)&student, sizeof(student), 0);
 
-		printf_s(" Password: %llu\n Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.hash, student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+		printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
 
 
 
@@ -201,9 +202,21 @@ void introScreen(char* str , int log_Stat)
 }
 
 void introScreen2(char* str, int log_stat)
-{
+{ 
 
 	sf::RenderWindow win(sf::VideoMode(1280, 720), "Virtual Assistant");
+	sf::RectangleShape background(sf::Vector2f(750.0f, 900.0f));
+	background.setPosition(260.0f, 0.0f);
+	sf::Texture iutTexture;
+	iutTexture.loadFromFile("iut x.png");
+	background.setTexture(&iutTexture);
+
+	sf::SoundBuffer buffer;
+	buffer.loadFromFile("sound.wav");
+	sf::Sound mousepop;
+	mousepop.setBuffer(buffer);
+
+
 	Button search, list, adms, cafe, chat, login, stdportal, emergency;
 
 	system("cls");
@@ -217,25 +230,80 @@ void introScreen2(char* str, int log_stat)
 	stdportal.create(xthresh+210, ythresh + 80 * 2 +20, 200, 80, "stdportal2.png", "stdportal1.png", "stdportal3.png");
 	cafe.create(xthresh+210, ythresh + 80 * 3 +30, 200, 80, "cafe2.png", "cafe1.png", "cafe3.png");
 
+	int x[2] = { 0 };
+	int y[2] = { 0 };
+	int z[2] = { 0 };
+	int a[2] = { 0 };
+	int b[2] = { 0 };
+	int c[2] = { 0 };
+	int d[2] = { 0 };
+	int e[2] = { 0 };
+
 
 	while (win.isOpen())
 	{
 		sf::Event eve;
 		while (win.pollEvent(eve))
 		{
-			search.onButton(win, str, "searchfaculty");
-			list.onButton(win, str,"faculty" );
-			adms.onButton(win, str, "admission");
-			emergency.onButton(win, str, "help");
-			login.onButton(win, str, "login");
-			chat.onButton(win, str,"chat"  );
+			x[0] = search.onButton(win, str, "searchfaculty");
+			if (x[0] == 1 && x[1] == 0)
+			{
+				mousepop.play();
+				
+			} 
+			x[1] = x[0];
+			
+			
+			y[0] = list.onButton(win, str, "faculty");
+			if (y[0] == 1 && y[1] == 0)
+			{
+				mousepop.play();
+			}
+			y[1] = y[0];
 
+			z[0] = adms.onButton(win, str, "admission");
+			if (z[0] == 1 && z[1] == 0)
+			{
+				mousepop.play();
+			}
+			z[1] = z[0];
+
+			a[0] = emergency.onButton(win, str, "help");
+			if (a[0] == 1 && a[1] == 0)
+			{
+				mousepop.play();
+			}
+			a[1] = a[0];
+			b[0] = login.onButton(win, str, "login");
+			if (b[0] == 1 && b[1] == 0)
+			{
+				mousepop.play();
+			}
+			b[1] = b[0];
+			c[0] = chat.onButton(win, str, "chat");
+			if (c[0] == 1 && c[1] == 0)
+			{
+				mousepop.play();
+			}
+			c[1] = c[0];
+			
 
 			if (log_stat == 1)
 			{
 				
-				stdportal.onButton(win, str, "Portal");
-				cafe.onButton(win, str, "cafe");
+				d[0] = stdportal.onButton(win, str, "Portal");
+				if (d[0] == 1 && d[1] == 0)
+				{
+					mousepop.play();
+				}
+				d[1] = d[0];
+
+				e[0] = cafe.onButton(win, str, "cafe");
+				if (e[0] == 1 && e[1] == 0)
+				{
+					mousepop.play();
+				}
+				e[1] = e[0];
 			}
 			if (eve.type == sf::Event::Closed)
 			{
@@ -246,6 +314,7 @@ void introScreen2(char* str, int log_stat)
 
 		}
 		win.clear(sf::Color::Black);
+		win.draw(background);
 		search.drawButton(win);
 		list.drawButton(win);
 		adms.drawButton(win);
@@ -314,17 +383,126 @@ unsigned long long Hash(const char* str)
 	return x;
 }
 
+std::string takePasswdFromUser(char sp = '*')
+{
+	// Stores the password
+	string passwd = "";
+	char ch_ipt;
+
+	// Until condition is true
+	while (true) {
+
+		ch_ipt = _getch();
+
+		// if the ch_ipt
+		if (ch_ipt == IN::IN_RET) {
+			cout << endl;
+			return passwd;
+		}
+		else if (ch_ipt == IN::IN_BACK
+			&& passwd.length() != 0) {
+			passwd.pop_back();
+
+			// Cout statement is very
+			// important as it will erase
+			// previously printed character
+			cout << "\b \b";
+
+			continue;
+		}
+
+		// Without using this, program
+		// will crash as \b can't be
+		// print in beginning of lines
+		else if (ch_ipt == IN::IN_BACK
+			&& passwd.length() == 0) {
+			continue;
+		}
+
+		passwd.push_back(ch_ipt);
+		cout << sp;
+	}
+}
+
+
+
 void login_client(SOCKET sock , int * log_Stat)
 {
 	logininfo log;
-	char password[100];
+	string pass;
 	char success_status;
 
-	std::cout << "\n\n\nPlease Enter your ID and password to log in : \n";
-	std::cout << "ID : ";
+	std::cout << "\n\n\n\n\n\n\n\n\t\t\t\tPlease Enter your ID and password to log in : \n";
+	std::cout << "\n\t\t\t\tID : ";
 	cin >> log.id; getchar();
-	cout << "Password : ";
-	scanf("%s", password); getchar();
+	cout << "\n\t\t\t\tPassword : ";
+	//scanf("%s", password); getchar();
+	pass = takePasswdFromUser();
+
+	int p_l = pass.length();
+
+	// declaring character array
+	char password[100];
+
+	// copying the contents of the
+	// string to char array
+	strcpy(password, pass.c_str());
+
+	/*
+		// Function that accepts the password
+		string takePasswdFromUser(char sp = '*')
+		{
+			// Stores the password
+			string passwd = "";
+			char ch_ipt;
+ 
+			// Until condition is true
+			while (true) {
+ 
+				ch_ipt = getch();
+ 
+				// if the ch_ipt
+				if (ch_ipt == IN::IN_RET) {
+					cout << endl;
+					return passwd;
+				}
+				else if (ch_ipt == IN::IN_BACK
+						 && passwd.length() != 0) {
+					passwd.pop_back();
+ 
+					// Cout statement is very
+					// important as it will erase
+					// previously printed character
+					cout << "\b \b";
+ 
+					continue;
+				}
+ 
+				// Without using this, program
+				// will crash as \b can't be
+				// print in beginning of line
+				else if (ch_ipt == IN::IN_BACK
+						 && passwd.length() == 0) {
+					continue;
+				}
+ 
+				passwd.push_back(ch_ipt);
+				cout << sp;
+			}
+		}
+ 
+		// Driver Code
+		int main()
+		{
+			string input;
+			cout << "@root>>> ";
+ 
+			// Function call
+			input = takePasswdFromUser();
+			cout << input << endl;
+		}
+	
+	*/
 
 	log.hash = Hash(password);
 
@@ -345,13 +523,13 @@ void login_client(SOCKET sock , int * log_Stat)
 
 	if (success_status == 'S')
 	{
-		cout << "Successfully Logged in\n";
+		cout << "\n\t\t\t\tSuccessfully Logged in\n";
 		*log_Stat = 1;
 		Sleep(2000);
 	}
 	else if (success_status == 'F')
 	{
-		cout << "Check your credentials, login failed.\n";
+		cout << "\n\t\t\t\tCheck your credentials, login failed.\n";
 		 *log_Stat = 0;
 		Sleep(2000);
 	}
@@ -373,6 +551,7 @@ void TicketPrint(SOCKET sock)
 	int choice;
 	cout << " >> ";
 	cin >> choice;
+
 	if (choice == 1)
 	{
 		char buff = 'L';
@@ -390,6 +569,65 @@ void TicketPrint(SOCKET sock)
 		else if (buff == 'Y')
 		{
 			cout << "\nYour Lunch ticket has been purchased successfully\n";
+			string id;
+			cout << "Please enter your id: ";
+			cin >> id;
+
+			time_t ttime = time(0);
+
+			string dt = ctime(&ttime);
+			// convert string to upper case
+			std::for_each(dt.begin(), dt.end(), [](char& c) {
+				c = ::toupper(c);
+				});
+
+			sf::RenderWindow window(sf::VideoMode(1000, 400), "Lunch Ticket");
+			sf::Font font;
+			font.loadFromFile("Montserrat.ttf");
+
+			sf::Text text;
+			text.setFont(font);
+			text.setString(id);
+			text.setCharacterSize(28);
+			text.setFillColor(sf::Color::Black);
+			text.setStyle(sf::Text::Bold);
+			text.setPosition(133.0f, 182.0f);
+
+			sf::Font font2;
+			font2.loadFromFile("Montserrat.ttf");
+
+			sf::Text text2;
+			text2.setFont(font2);
+			text2.setString(dt);
+			text2.setCharacterSize(13);
+			text2.setFillColor(sf::Color::Black);
+			text2.setPosition(120.0f, 252.0f);
+
+			
+			
+			sf::RectangleShape lunchticket(sf::Vector2f(900.0f, 300.0f));
+			lunchticket.setPosition(50.0f, 50.0f);
+			sf::Texture lunch;
+			lunch.loadFromFile("lunch.png");
+			lunchticket.setTexture(&lunch);
+
+			while (window.isOpen())
+			{
+				sf::Event event;
+				while (window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						window.close();
+				}
+
+				window.clear();
+				window.draw(lunchticket);
+				window.draw(text);
+				window.draw(text2);
+				window.display();
+			}
+
+
 			getchar();
 			return;
 		}
@@ -410,6 +648,65 @@ void TicketPrint(SOCKET sock)
 		else if (buff == 'Y')
 		{
 			cout << "\nYour Dinner ticket has been purchased successfully\n";
+
+			string id;
+			cout << "Please enter your id: ";
+			cin >> id;
+
+			time_t ttime = time(0);
+
+			string dt = ctime(&ttime);
+			// convert string to upper case
+			std::for_each(dt.begin(), dt.end(), [](char& c) {
+				c = ::toupper(c);
+				});
+
+			sf::RenderWindow window(sf::VideoMode(1000, 400), "Dinner Ticket");
+			sf::Font font;
+			font.loadFromFile("Montserrat.ttf");
+
+			sf::Text text;
+			text.setFont(font);
+			text.setString(id);
+			text.setCharacterSize(28);
+			text.setFillColor(sf::Color::White);
+			text.setStyle(sf::Text::Bold);
+			text.setPosition(133.0f, 182.0f);
+
+			sf::Font font2;
+			font2.loadFromFile("Montserrat.ttf");
+
+			sf::Text text2;
+			text2.setFont(font2);
+			text2.setString(dt);
+			text2.setCharacterSize(13);
+			text2.setFillColor(sf::Color::White);
+			text2.setPosition(120.0f, 252.0f);
+
+
+
+			sf::RectangleShape dinnerticket(sf::Vector2f(900.0f, 300.0f));
+			dinnerticket.setPosition(50.0f, 50.0f);
+			sf::Texture dinner;
+			dinner.loadFromFile("dinner.png");
+			dinnerticket.setTexture(&dinner);
+
+			while (window.isOpen())
+			{
+				sf::Event event;
+				while (window.pollEvent(event))
+				{
+					if (event.type == sf::Event::Closed)
+						window.close();
+				}
+
+				window.clear();
+				window.draw(dinnerticket);
+				window.draw(text);
+				window.draw(text2);
+				window.display();
+			}
+
 			getchar();
 			return; 
 		}

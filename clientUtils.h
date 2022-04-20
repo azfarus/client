@@ -1,9 +1,17 @@
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <iostream>
 #include <WS2tcpip.h>
 #include <string>
+#include <cstring>
+#include <string.h>
 #include <Windows.h>
 #include <conio.h>
+#include <stdbool.h>
+#include <ctype.h>
+#include <ctime>
+#include <algorithm>
+
 
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
@@ -19,6 +27,8 @@ public:
 	int buttwidth, buttheight;
 	sf::RectangleShape butt;
 	sf::Texture n, f, p, jama;
+	sf::SoundBuffer buf;
+	sf::Sound click;
 
 
 	void create(int x, int y, int w, int h , std::string Nn, std::string Ff, std::string Pp)
@@ -32,6 +42,8 @@ public:
 		n.loadFromFile(Nn);
 		f.loadFromFile(Ff);
 		p.loadFromFile(Pp);
+		buf.loadFromFile("mouse2.wav");
+		click.setBuffer(buf);
 		butt.setTexture(&n);
 
 	}
@@ -45,6 +57,7 @@ public:
 		{
 			butt.setTexture(&f);
 			//std::cout << "Button hovering\n";
+
 			if (sf::Mouse::isButtonPressed(sf::Mouse::Left))
 			{
 
@@ -52,7 +65,7 @@ public:
 				strcpy(userInput, set);
 				window.draw(butt);
 				window.display();
-				printf("\a");
+				click.play();
 				Sleep(200);
 				window.close();
 				
@@ -116,6 +129,13 @@ typedef struct _logininfo
 	unsigned long long id;
 	unsigned long long hash;
 }logininfo;
+
+enum IN {
+
+	IN_BACK = 8,
+	IN_RET = 13
+
+};
 
 
 
