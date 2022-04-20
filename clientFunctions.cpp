@@ -89,7 +89,7 @@ void faculties(SOCKET sock)
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("   %3d) Name: %20s Department: %20s Phone no: %-11.11llu\n", i++, faculty.name, faculty.department, faculty.phone_no);
+		printf_s("   %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.department, faculty.phone_no);
 
 
 

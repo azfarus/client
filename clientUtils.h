@@ -15,7 +15,7 @@
 
 
 #define _WINSOCK_DEPRECATED_NO_WARNINGS
-#define ipaddress "192.168.0.105"
+#define ipaddress "127.0.0.1"
 #define xthresh 450
 #define ythresh 200
 
