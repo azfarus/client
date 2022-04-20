@@ -98,12 +98,15 @@ void faculties(SOCKET sock)
 }
 
 
-void Portal(SOCKET sock)
+void Portal(SOCKET sock , studentPortal * loggedStud , int * loginS)
 {
 	studentPortal student;
-	int byte_recv, i = 1;
+	ZeroMemory(&student, sizeof(student));
+	if (*loginS != 0 ) student = *loggedStud;
 
-	printf("Student Details: \n\n");
+	/*int byte_recv, i = 1;*/
+
+	/*printf("Student Details: \n\n");
 	do {
 		byte_recv = recv(sock, (char*)&student, sizeof(student), MSG_PEEK);
 		if ((student.roll) == 0)
@@ -114,11 +117,13 @@ void Portal(SOCKET sock)
 
 		byte_recv = recv(sock, (char*)&student, sizeof(student), 0);
 
-		printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+		
 
 
 
-	} while (byte_recv > 0);
+	} while (byte_recv > 0);*/
+
+	printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
 	return;
 }
 void introScreen(char* str , int log_Stat)
@@ -426,7 +431,7 @@ std::string takePasswdFromUser(char sp = '*')
 
 
 
-void login_client(SOCKET sock , int * log_Stat)
+void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 {
 	logininfo log;
 	string pass;
@@ -523,6 +528,8 @@ void login_client(SOCKET sock , int * log_Stat)
 
 	if (success_status == 'S')
 	{
+		
+		int r = recv(sock, (char *)loggedStud , sizeof(studentPortal), 0);
 		cout << "\n\t\t\t\tSuccessfully Logged in\n";
 		*log_Stat = 1;
 		Sleep(2000);
@@ -545,7 +552,7 @@ void login_client(SOCKET sock , int * log_Stat)
 
 }
 
-void TicketPrint(SOCKET sock)
+void TicketPrint(SOCKET sock , studentPortal * logged)
 {
 	printf("Purchase: \n 1) Lunch Ticket (TK. 70)\n 2) Dinner Ticket (Tk. 80)\n");
 	int choice;
@@ -569,9 +576,11 @@ void TicketPrint(SOCKET sock)
 		else if (buff == 'Y')
 		{
 			cout << "\nYour Lunch ticket has been purchased successfully\n";
-			string id;
-			cout << "Please enter your id: ";
-			cin >> id;
+			string id; char idT[20];
+			sprintf_s(idT, "%llu", logged->roll);
+
+			id = idT;
+			
 
 			time_t ttime = time(0);
 

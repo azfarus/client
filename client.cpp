@@ -2,7 +2,7 @@
 #pragma comment(lib, "ws2_32.lib")
 
 int log_Stat = 0;
-
+studentPortal loggedStud;
 
 
 using namespace std;
@@ -69,21 +69,21 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
-				Portal(sock);
+				Portal(sock , &loggedStud, &log_Stat);
 			}
 		}
 		else if (!strncmp(userInput, "login", 6))
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
-				login_client(sock , &log_Stat);
+				login_client(sock , &log_Stat , &loggedStud);
 			}
 		}
 		else if (!strncmp(userInput, "cafe", 4))
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
-				TicketPrint(sock);
+				TicketPrint(sock , &loggedStud);
 			}
 		}
 		else if (!strncmp(userInput, "admission", 9))
