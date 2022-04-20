@@ -124,6 +124,7 @@ void Portal(SOCKET sock , studentPortal * loggedStud , int * loginS)
 	} while (byte_recv > 0);*/
 
 	printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+	printf_s("Bank Balance : %d\n", loggedStud->balance);
 	return;
 }
 void introScreen(char* str , int log_Stat)
@@ -578,7 +579,7 @@ void TicketPrint(SOCKET sock , studentPortal * logged)
 			cout << "\nYour Lunch ticket has been purchased successfully\n";
 			string id; char idT[20];
 			sprintf_s(idT, "%llu", logged->roll);
-
+			logged->balance -= 70;
 			id = idT;
 			
 
@@ -657,7 +658,7 @@ void TicketPrint(SOCKET sock , studentPortal * logged)
 		else if (buff == 'Y')
 		{
 			cout << "\nYour Dinner ticket has been purchased successfully\n";
-
+			logged->balance -= 80;
 			string id; char idT[20];
 			sprintf_s(idT, "%llu", logged->roll);
 
