@@ -74,7 +74,9 @@ void faculties(SOCKET sock)
 
 
 	ZeroMemory(dept, 10);
+	printf_s("\033[4;33m");
 	printf("Faculties are: \n");
+	printf_s("\033[0m");
 	do {
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), MSG_PEEK);
 		if ((faculty.phone_no) == 0)
@@ -85,11 +87,14 @@ void faculties(SOCKET sock)
 		if (strcmp(dept, faculty.department))
 		{
 			strcpy(dept, faculty.department);
+			printf_s("\033[0;36m");
 			printf("  %4s : \n", dept);
+			printf_s("\033[0m");
+			
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("   %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
+		printf_s("          %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
 
 
 
