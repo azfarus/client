@@ -658,9 +658,10 @@ void TicketPrint(SOCKET sock , studentPortal * logged)
 		{
 			cout << "\nYour Dinner ticket has been purchased successfully\n";
 
-			string id;
-			cout << "Please enter your id: ";
-			cin >> id;
+			string id; char idT[20];
+			sprintf_s(idT, "%llu", logged->roll);
+
+			id = idT;
 
 			time_t ttime = time(0);
 
