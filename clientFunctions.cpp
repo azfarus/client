@@ -42,8 +42,11 @@ void services(SOCKET sock)
 	/*char dept[10];
 
 
+
+
+
 	ZeroMemory(dept, 10);*/
-	printf("Services are: \n");
+	printf("\n\n     \033[4;36m                         Services                            \033[0m \n\n");
 	do {
 		byte_recv = recv(sock, (char*)&service, sizeof(service), MSG_PEEK);
 		if ((service.contact) == 0)
@@ -58,7 +61,8 @@ void services(SOCKET sock)
 		}*/
 
 		byte_recv = recv(sock, (char*)&service, sizeof(service), 0);
-		printf_s("   %3d) Service Name: %20s Contact no: %-11.11llu\n", i++, service.service, service.contact);
+		if(service.contact>999 )printf_s("   %3d) Service Name: %20s Contact no: %-11.11llu\n", i++, service.service, service.contact);
+		else printf_s("   %3d) Service Name: %20s Contact no: %11llu\n", i++, service.service, service.contact);
 
 
 
@@ -914,25 +918,37 @@ void admission(SOCKET sock)
 void chat(SOCKET sock)
 {
 	char buff[500];
-
+	printf("\n\n\033[1;32m                   Virtual Assistance                \033[0m \n\n");
 	while (true)
 	{
-		cout << "client >> ";
+		cout << "User   >> ";
 		cin.getline(buff, sizeof(buff));
 
 		if (!strncmp(buff, "bye", 3))
 		{
 			send(sock, (char*)&buff, sizeof(buff), 0);
 
-			cout << "Terminating chat shortly...." << endl;
+			//cout << "Terminating chat shortly...." << endl;
+			printf_s("\n\n");
+			for (int i = 0; i < 2; i++)
+			{
+				for (int j = 0; j < 54; j++)
+				{
+					printf("\033[1;31m-\033[0m");
+					Sleep(7);
+				}
+				printf("\n");
 
+			}
 			return;
 		}
+
+		
 
 		send(sock, (char*)&buff, sizeof(buff), 0);
 
 		recv(sock, (char*)&buff, sizeof(buff), 0);
-		cout << "server >> " << buff << endl;
+		printf("\033[0;33mserver >>\033[0m %s\n", buff);
 	}
 
 	return;
