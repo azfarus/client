@@ -42,7 +42,7 @@ void main()
 			if (sendResult != SOCKET_ERROR)
 			{
 				// Wait for response
-				std::cout << ">>>>>  " << log_Stat<<endl;
+				//std::cout << ">>>>>  " << log_Stat<<endl;
 				faculties(sock);
 			}
 		}
@@ -101,7 +101,7 @@ void main()
 			}
 		}
 
-		printf("Press enter to go back : ");
+		printf("\n\n\n\nPress enter to go back : ");
 		getchar();
 		introScreen2(userInput , log_Stat);
 

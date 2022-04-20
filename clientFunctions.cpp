@@ -75,7 +75,7 @@ void faculties(SOCKET sock)
 
 	ZeroMemory(dept, 10);
 	printf_s("\033[4;33m");
-	printf("Faculties are: \n");
+	printf("Faculties are:\n");
 	printf_s("\033[0m");
 	do {
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), MSG_PEEK);
@@ -88,13 +88,13 @@ void faculties(SOCKET sock)
 		{
 			strcpy(dept, faculty.department);
 			printf_s("\033[0;36m");
-			printf("  %4s : \n", dept);
+			printf("  %4s : \n\n", dept);
 			printf_s("\033[0m");
 			
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("          %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
+		printf_s("       %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
 
 
 
@@ -344,7 +344,8 @@ void searchFaculties_client(SOCKET sock)
 	info faculty;
 	int byte_recv, i = 1;
 	char searchTermBuf[128], dept[10];
-	cout << "Enter name of teacher : " << endl;
+	cout << "Enter search term (non space separated) : " << endl;
+	printf_s("\033[0;34m >>> \033[0m");
 
 	scanf("%s", searchTermBuf);
 
@@ -356,8 +357,10 @@ void searchFaculties_client(SOCKET sock)
 	}
 
 
-
-	printf("Results found are: \n");
+	printf_s("\033[4;33m");
+	printf("\n\nResults found are:\n");
+	printf_s("\033[0m");
+	
 	do {
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), MSG_PEEK);
 		if ((faculty.phone_no) == 0)
@@ -368,7 +371,10 @@ void searchFaculties_client(SOCKET sock)
 		if (strcmp(dept, faculty.department))
 		{
 			strcpy(dept, faculty.department);
-			printf("  %4s : \n", dept);
+			
+			printf_s("\033[0;36m");
+			printf("  %4s : \n\n", dept);
+			printf_s("\033[0m");
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
