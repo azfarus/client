@@ -984,7 +984,8 @@ void chat(SOCKET sock)
 		//gotoxy(0, 7 + i);
 		cout<<"User  >>  ";
 		cin.getline(buff, sizeof(buff));
-		printf("\n");
+		if (strlen(buff) > 1000) printf("        \033[1;31mWARNING MAX SIZE CROSSED\033[0m");
+		printf("\n\n");
 		if (!strncmp(buff, "bye", 3))
 		{
 			send(sock, (char*)&buff, sizeof(buff), 0);
