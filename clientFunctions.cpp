@@ -973,7 +973,11 @@ void admission(SOCKET sock)
 
 void chat(SOCKET sock)
 {
-	char buff[500]; int i = 0;
+
+	printf("                      ONLY ENTER TEXTS BELOW \033[1;31m 1000 \033[0m CHARACTERS\n");
+	Sleep(2500);
+	system("cls");
+	char buff[2000]; int i = 0;
 	printf("\n\n\033[1;32m                             Virtual Assistance      \033[0m \n\n");
 	while (true)
 	{
@@ -1023,7 +1027,7 @@ void chat(SOCKET sock)
 					
 				}
 			}
-			temp50[strlen(buff)%50 + 1] =0;
+			temp50[strlen(buff)%50+1 ] =0;
 			if (strlen(buff) > 45) printf_s("         %-50s  ", temp50);
 			else  printf_s("         %50s  ", temp50);
 		printf("\033[0;33m  << assistant\033[0m\n\n\n", buff);
