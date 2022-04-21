@@ -757,27 +757,36 @@ void TicketPrint(SOCKET sock , studentPortal * logged)
 
 void admission(SOCKET sock)
 {
-	printf("Welcome to the Admission Portal of IUT\n");
-	printf("1) Programmes and Seats\n");
-	printf("2) Minimum Requirements\n");
-	printf("3) Apply Now!\n");
+	printf("\n\n\n");
+	printf("\t\t\t\tWelcome to the Admission Portal of IUT\n");
+	printf("\t\t\t\t\033[0;33m--------------------------------------\033[0m\n\n");
+	printf("\t\t\t\t1) Programmes and Seats\n\n");
+	printf("\t\t\t\t2) Minimum Requirements\n\n");
+	printf("\t\t\t\t\033[0;31m3) Apply Now!\033[0m\n\n");
 
 	int choice;
-	cout << " >> ";
+	cout << "\n\t\t\t\t\>> ";
 	cin >> choice;
+
+	if (choice < 1 && choice > 3)
+	{
+		cerr << "Invalid Choice!\n";
+		getchar();
+		return;
+	}
 
 	if (choice == 1)
 	{
 		system("cls");
-		printf("        IUT PROGRAMMES   Available Seats \n");
-		printf("	----------------------------------\n");
-		printf("          1)CSE\t\t  --> 120 Seats \n");
-		printf("          2)EEE\t\t  --> 180 Seats \n");
-		printf("          3)ME \t\t  --> 120 Seats \n");
-		printf("          4)SWE\t\t  -->  60 Seats \n");
-		printf("          5)CEE\t\t  --> 120 Seats \n");
-		printf("          6)BTM\t\t  -->  60 Seats \n");
-		printf("          7)IPE\t\t  -->  60 Seats \n");
+		printf("\n\n\n\n\t\t\t\tIUT PROGRAMMES  Available Seats \n");
+		printf("\t\t\t\t\033[0;33m--------------------------------\033[0m\n\n");
+		printf("\t\t\t\t\033[0;33m1)CSE\033[0m\t\t  ---> \033[0;36m 120 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m2)EEE\033[0m\t\t  ---> \033[0;36m 180 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m3)ME \033[0m\t\t  ---> \033[0;36m 120 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m4)SWE\033[0m\t\t  ---> \033[0;36m  60 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m5)CEE\033[0m\t\t  ---> \033[0;36m 120 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m6)BTM\033[0m\t\t  ---> \033[0;36m  60 Seats\033[0m \n\n");
+		printf("\t\t\t\t\033[0;33m7)IPE\033[0m\t\t  ---> \033[0;36m  60 Seats\033[0m \n\n");
 
 		getchar();
 		return;
@@ -787,16 +796,16 @@ void admission(SOCKET sock)
 	{
 		system("cls");
 
-		printf("	Minimum Requirements For Admission:\n");
-		printf("	-----------------------------------\n\n");
-		printf("Student From Host Country:\n");
-		printf("--------------------------\n\n");
-		printf("SSC Equivalent: \n");
-		printf("--------------\n");
+		printf("\n\n\n\t\t\t\tMinimum Requirements For Admission : \n");
+		printf("\t\t\t\t\033[0;33m----------------------------------\033[0m  \n\n");
+		printf("\033[0;33mStudent From Host Country:\033[0m\n");
+		printf("\033[0;33m--------------------------\033[0m\n\n");
+		printf("\033[0;36mSSC Equivalent: \n");
+		printf("--------------\033[0m\n\n");
 		printf("1) Student From only Science Group can Apply\n");
 		printf("2) Minimum GPA 4.50 out of 5.00\n\n");
-		printf("HSC Equivalent: \n");
-		printf("--------------\n");
+		printf("\033[0;36mHSC Equivalent: \n");
+		printf("--------------\033[0m\n\n");
 		printf("1) Student From Only Science Group Can Apply\n");
 		printf("2) Minimum GPA 4.50 out of 5.00\n");
 		printf("3) Must have A+ grade in Following Subjects:\n");
@@ -814,15 +823,21 @@ void admission(SOCKET sock)
 	else if (choice == 3)
 	{
 		system("cls");
-		printf("\t\tADMISSION APPLICATION\n");
-		printf("\t\t---------------------\n");
+		printf("\n\n\t\t\t\tADMISSION APPLICATION\n");
+		printf("\t\t\t\t\033[0;33m---------------------\033[0m\n\n");
 
 		double GPA_SSC, GPA_HSC;
 		long long int roll_SSC, roll_HSC;
 		string grade_PHY, grade_CHEM, grade_MATHS, grade_ENGLISH;
 		string name, Father, Mother, Address, School, College;
 
-		cout << "Enter Your SSC GPA: \n >> ";
+		cout << "\033[0;33mEnter Your SSC roll number: \033[0m\n";
+		cin >> roll_SSC;
+
+		cout << "\033[0;33mEnter Your HSC roll number: \033[0m\n";
+		cin >> roll_HSC;
+
+		cout << "\033[0;33mEnter Your SSC GPA: \033[0m\n >> ";
 		cin >> GPA_SSC;
 		if (GPA_SSC < 0 || GPA_SSC > 5)
 		{
@@ -831,7 +846,7 @@ void admission(SOCKET sock)
 			return;
 		}
 
-		cout << "Enter Your HSC GPA: \n >> ";
+		cout << "\033[0;33mEnter Your HSC GPA: \033[0m\n >> ";
 		cin >> GPA_HSC;
 		if (GPA_HSC < 0 || GPA_HSC > 5)
 		{
@@ -839,25 +854,44 @@ void admission(SOCKET sock)
 			getchar();
 			return;
 		}
-
-		cout << "Enter your grades for the following subjects:\n";
-		cout << "Physics >> ";
+		
+		cout << "\033[0;36m\nEnter your grades for the following subjects:\033[0m\n\n";
+		cout << "\033[0;33mPhysics \033[0m>> ";
 		cin >> grade_PHY;
 
-		cout << "Chemistry >> ";
+		if (grade_PHY[0] < 'A' || grade_PHY[0] > 'F')
+		{
+			cerr << "Invalid Grade Input\n";
+			getchar();
+			return;
+		}
+		cout << "\033[0;33mChemistry \033[0m>> ";
 		cin >> grade_CHEM;
+		if (grade_CHEM[0] < 'A' || grade_CHEM[0] > 'F')
+		{
+			cerr << "Invalid Grade Input\n";
+			getchar();
+			return;
+		}
 
-		cout << "Mathematics >> ";
+		cout << "\033[0;33mMathematics\033[0m >> ";
 		cin >> grade_MATHS;
-
-		cout << "English >> ";
+		if (grade_MATHS[0] < 'A' || grade_MATHS[0] > 'F')
+		{
+			cerr << "Invalid Grade Input\n";
+			getchar();
+			return;
+		}
+		cout << "\033[0;33mEnglish \033[0m>> ";
 		cin >> grade_ENGLISH;
+		if (grade_ENGLISH[0] < 'A' || grade_ENGLISH[0] > 'F')
+		{
+			cerr << "Invalid Grade Input\n";
+			getchar();
+			return;
+		}
 
-		cout << "SSC roll number: ";
-		cin >> roll_SSC;
-
-		cout << "HSC roll number: ";
-		cin >> roll_HSC;
+		
 
 		//Checking eligibility
 
@@ -866,48 +900,63 @@ void admission(SOCKET sock)
 			if (grade_PHY == "A+" && grade_CHEM == "A+" && grade_MATHS == "A+" && (grade_ENGLISH == "A+" || grade_ENGLISH == "A"))
 			{
 				system("cls");
-				cout << "Congratulations you are Eligible For Admission Application\n";
-				cout << "Enter Student name: ";
+				cout << "\033[0;31m\t\t\t\tCongratulations you are Eligible For Admission Application!\033[0m\n";
+				printf_s("\n\n\n");
+				for (int i = 0; i < 2; i++)
+				{
+					for (int j = 0; j < 120; j++)
+					{
+						printf("-");
+						Sleep(7);
+					}
+					printf("Redirecting to the Data Entry Page....\n");
+
+				}
+				fflush(stdin);
+				system("cls");
+				printf("\n\n");
+				cout << "\033[0;33mEnter Student name: \033[0m";
 				getchar();
 				getline(cin, name);
 
-				cout << "Enter Father's name: ";
+				cout << "\033[0;33mEnter Father's name: \033[0m";
 				getline(cin, Father);
 
-				cout << "Enter Mother's name: ";
+				cout << "\033[0;33mEnter Mother's name: \033[0m";
 				getline(cin, Mother);
 
-				cout << "Enter Address: ";
+				cout << "\033[0;33mEnter Address: \033[0m";
 				getline(cin, Address);
 				
-				cout << "Enter School: ";
+				cout << "\033[0;33mEnter School: \033[0m";
 				getline(cin, School);
 
-				cout << "Enter College: ";
+				cout << "\033[0;33mEnter College: \033[0m";
 				getline(cin, College);
-				printf("REGISTRATION COMPLETED! Press any key to see details\n");
+				printf("\n\n\n");
+				printf("\t\t\t\t\033[0;31mREGISTRATION COMPLETED! Press any key to see details...\033[0m\n");
 				getchar();
 
 				system("cls");
 
-				printf("\t\tDETAILS OF REGISTERED STUDENT\n");
-				printf("\t\t-----------------------------\n");
+				printf("\n\n\n\n\t\t\t\t\032[0;33mDETAILS OF REGISTERED STUDENT\n");
+				printf("\t\t\t\t-----------------------------\033[0m\n\n");
 
-				cout << "Student Name : " << name << endl;
-				cout << "Father's Name: " << Father << endl;
-				cout << "Mother's Name: " << Mother << endl;
-				cout << "Address      : " << Address << endl;
-				cout << "School       : " << School << endl;
-				cout << "College      : " << College << endl;
-				cout << "SSC Roll     : " << roll_SSC << endl;
-				cout << "HSC roll     : " << roll_HSC << endl;
+				cout << "\033[0;36mStudent Name : \033[0m" << name << endl;
+				cout << "\033[0;36mFather's Name: \033[0m" << Father << endl;
+				cout << "\033[0;36mMother's Name: \033[0m" << Mother << endl;
+				cout << "\033[0;36mAddress      : \033[0m" << Address << endl;
+				cout << "\033[0;36mSchool       : \033[0m" << School << endl;
+				cout << "\033[0;36mCollege      : \033[0m" << College << endl;
+				cout << "\033[0;36mSSC Roll     : \033[0m" << roll_SSC << endl;
+				cout << "\033[0;36mHSC roll     : \033[0m" << roll_HSC << endl;
 				getchar();
 				return;
 			}
 			else
 			{
 				system("cls");
-				cerr << "Sorry, you do not meet the minimum requirement of subject grades.\n";
+				cerr << "\033[0;31m\n\n\n\t\t\t\tSorry! You do not meet the minimum requirement of subject grades!\033[0m\n";
 				getchar();
 				return;
 			}
@@ -915,7 +964,7 @@ void admission(SOCKET sock)
 		else
 		{
 			system("cls");
-			cerr << "Sorry, you do not meet the minimum requirement of SSC and HSC GPA.\n";
+			cerr << "\033[0;31m\n\n\n\t\t\t\tSorry! You do not meet the minimum requirement SSC and HSC GPA!\033[0m\n";
 			getchar();
 			return;
 		}
