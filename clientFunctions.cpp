@@ -616,8 +616,11 @@ void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 void TicketPrint(SOCKET sock , studentPortal * logged)
 {
 start:
-	system("cls");
-	printf("          Purchase: \n 1) Lunch Ticket (TK. 70)\n 2) Dinner Ticket (Tk. 80)\n");
+	printf("\n\n\n\n\t\t\t\t\Purchase Cafe Tickets:\n");
+	printf("\t\t\t\t\033[0;33m----------------------\033[0m\n\n\n");
+	printf("\t\t\t\t\033[0;36m1)\033[0m Lunch Ticket \033[0;33m( 70 taka )\033[0m \n\n");
+	printf("\t\t\t\t\033[0;36m2)\033[0m Dinner Ticket \033[0;33m( 80 taka )\033[0m\n\n");
+	cout << "\t\t\t\t\033[0;31m>> \033[0m";
 	int choice;
 	cout << " >> ";
 	scanf("%d", &choice);
