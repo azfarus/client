@@ -147,7 +147,7 @@ void introScreen(char* str, int log_Stat);
 void searchFaculties_client(SOCKET sock);
 void Portal(SOCKET sock, studentPortal* loggedStud, int* loginS);
 void login_client(SOCKET sock , int *log_Stat, studentPortal* loggedStud);//New function addded
-void introScreen2(char* str, int log_stat);
+void introScreen2(char* str, int log_stat, studentPortal* studlog);
 unsigned long long Hash(const char* str);
 void TicketPrint(SOCKET sock, studentPortal* logged);
 

@@ -29,7 +29,7 @@ void main()
 
 	
 
-	introScreen2(userInput , log_Stat);
+	introScreen2(userInput , log_Stat , &loggedStud);
 
 	do
 	{
@@ -109,7 +109,7 @@ void main()
 
 		printf("\n\n\n\nPress enter to go back : ");
 		getchar();
-		introScreen2(userInput , log_Stat);
+		introScreen2(userInput, log_Stat, &loggedStud);
 
 
 

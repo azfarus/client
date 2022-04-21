@@ -233,7 +233,7 @@ void introScreen(char* str , int log_Stat)
 
 }
 
-void introScreen2(char* str, int log_stat)
+void introScreen2(char* str, int log_stat , studentPortal * studlog)
 { 
 
 	sf::RenderWindow win(sf::VideoMode(1280, 720), "Virtual Assistant");
@@ -247,6 +247,30 @@ void introScreen2(char* str, int log_stat)
 	buffer.loadFromFile("sound.wav");
 	sf::Sound mousepop;
 	mousepop.setBuffer(buffer);
+
+	sf::Font font;
+	font.loadFromFile("Montserrat.ttf");
+
+
+	string loginthings;
+	char temp[30];
+
+	if (log_stat)
+	{
+		sprintf(temp, "%d", studlog->roll);
+		loginthings = temp;
+	}
+	else
+	{
+		loginthings = "Not Logged in";
+	}
+	sf::Text text;
+	text.setFont(font);
+	text.setString(loginthings);
+	text.setCharacterSize(18);
+	text.setFillColor(sf::Color::White);
+	text.setStyle(sf::Text::Bold);
+	text.setPosition(1100.0f, 680.0f);
 
 
 	Button search, list, adms, cafe, chat, login, stdportal, emergency;
@@ -355,7 +379,7 @@ void introScreen2(char* str, int log_stat)
 		login.drawButton(win);
 		stdportal.drawButton(win);
 		cafe.drawButton(win);
-
+		win.draw(text);
 		win.display();
 	}
 }
