@@ -131,9 +131,20 @@ void Portal(SOCKET sock , studentPortal * loggedStud , int * loginS)
 
 
 	} while (byte_recv > 0);*/
+	printf("\n\n\n\n\n\t\t\t\t\033[0;36mWelcome To IUT Student Portal\n");
+	printf("\t\t\t\t-----------------------------\033[0m\n\n");
 
-	printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
-	printf_s("Bank Balance : %d\n", loggedStud->balance);
+	/*printf_s(" Roll: %llu\n Name: %s\n Email: %s\n Father's Name: %s\n Mother's Name: %s\n Dept: %s\n CG: %.2lf\n", student.roll, student.name, student.email, student.father, student.mother, student.dept, student.CG);
+	printf_s("Bank Balance : %d\n", loggedStud->balance);*/
+
+	printf("\033[0;33mRoll         :\033[0m  %-10llu\n", student.roll);
+	printf("\033[0;33mName	     :\033[0m  %-20s\n", student.name);
+	printf("\033[0;33mEmail        :\033[0m  %-20s\n", student.email);
+	printf("\033[0;33mFather's Name:\033[0m  %-20s\n", student.father);
+	printf("\033[0;33mMother's Name:\033[0m  %-20s\n", student.mother);
+	printf("\033[0;33mDepartment   :\033[0m  %-10s\n", student.dept);
+	printf("\033[0;33mCGPA         :\033[0m  %-.2lf\n", student.CG);
+	printf("\033[0;33mBank Balance :\033[0m  %-10llu\n", loggedStud->balance);
 	return;
 }
 void introScreen(char* str , int log_Stat)
@@ -452,11 +463,14 @@ void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 	logininfo log;
 	string pass;
 	char success_status;
-
-	std::cout << "\n\n\n\n\n\n\n\n\t\t\t\tPlease Enter your ID and password to log in : \n";
-	std::cout << "\n\t\t\t\tID : ";
+	
+	//Login TUI
+	printf("\n\n\n\n\n\n\t\t\t\t\033[0;36mPlease Login With Your Student Account to Enable Student Portal:\n");
+	printf("\t\t\t\t----------------------------------------------------------------\033[0m\n\n");
+	std::cout << "\n\t\t\t\t\033[0;33mPlease Enter your ID and password to log in : \033[0m\n";
+	std::cout << "\n\t\t\t\t\033[0;33mID : \033[0m";
 	cin >> log.id; getchar();
-	cout << "\n\t\t\t\tPassword : ";
+	cout << "\n\t\t\t\t\033[0;33mPassword : \033[0m";
 	//scanf("%s", password); getchar();
 	pass = takePasswdFromUser();
 
@@ -546,13 +560,13 @@ void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 	{
 		
 		int r = recv(sock, (char *)loggedStud , sizeof(studentPortal), 0);
-		cout << "\n\t\t\t\tSuccessfully Logged in\n";
+		cout << "\n\t\t\t\t\033[0;32mSuccessfully Logged in!\033[0m\n";
 		*log_Stat = 1;
 		Sleep(2000);
 	}
 	else if (success_status == 'F')
 	{
-		cout << "\n\t\t\t\tCheck your credentials, login failed.\n";
+		cout << "\n\t\t\t\t\033[0;31mCheck your credentials, login failed!\033[0m\n";
 		 *log_Stat = 0;
 		Sleep(2000);
 	}
