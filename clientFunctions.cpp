@@ -161,6 +161,7 @@ void introScreen(char* str , int log_Stat)
 			{
 			case 0:
 				strcpy(str, "faculty");
+				
 				break;
 			case 1:
 				strcpy(str, "searchfaculty");
@@ -187,7 +188,11 @@ void introScreen(char* str , int log_Stat)
 				break;
 
 			}
-			if (c == 'x') return;
+			if (c == 'x')
+			{
+				system("cls");
+				return;
+			}
 			memset(arrow, ' ', featureCount );
 			arrow[i] = '>';
 		}
@@ -206,8 +211,9 @@ void introScreen(char* str , int log_Stat)
 						  printf("			       %c 8) Buy Cafe Tickets\n", arrow[7]);
 					  }
 		
-		Sleep(150);
-		system("cls");
+		//Sleep(150);
+		//system("cls");
+		gotoxy(0, 0);
 	}
 
 
@@ -934,7 +940,7 @@ void chat(SOCKET sock)
 			printf_s("\n\n\n");
 			for (int i = 0; i < 2; i++)
 			{
-				for (int j = 0; j < 73; j++)
+				for (int j = 0; j < 75; j++)
 				{
 					printf("-");
 					Sleep(7);
@@ -956,19 +962,21 @@ void chat(SOCKET sock)
 		char temp50[53]; memset(temp50, ' ', sizeof(temp50));
 		
 		printf(" ");
-			for (int i = 1 ,j=0; i <= strlen(buff); i++,j++)
+			for (int i = 1 ,j=0; i <= strlen(buff);i++, j++)
 			{
 				temp50[j] = buff[i-1];
-				if ((i ) % 51 == 0)
+				if ((i) % 51 == 0)
 				{
-					temp50[j] = 0;
+					temp50[j+1] = 0;
 					printf_s("         %50s\n", temp50);
 					memset(temp50, ' ', sizeof(temp50));
 					j = 0;
+					
 				}
 			}
 			temp50[strlen(buff)%50 + 1] =0;
-			printf_s("         %-50s", temp50);
+			if (strlen(buff) > 45) printf_s("         %-50s  ", temp50);
+			else  printf_s("         %50s  ", temp50);
 		printf("\033[0;33m  << assistant\033[0m\n\n\n", buff);
 	}
 
