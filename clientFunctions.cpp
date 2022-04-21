@@ -217,8 +217,8 @@ void introScreen(char* str , int log_Stat)
 						  printf("			       %c 8) Buy Cafe Tickets\n", arrow[7]);
 					  }
 		
-		Sleep(150);
-		system("cls");
+		//Sleep(150);
+		gotoxy(0, 0);
 	}
 
 
