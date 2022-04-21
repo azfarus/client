@@ -98,6 +98,7 @@ void main()
 			if (sendResult != SOCKET_ERROR)
 			{
 				chat(sock);
+
 			}
 		}
 

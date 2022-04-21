@@ -154,7 +154,7 @@ void TicketPrint(SOCKET sock, studentPortal* logged);
 
 //New Function
 void admission(SOCKET sock);
-
+void gotoxy(int x, int y);
 void chat(SOCKET sock);
 
 

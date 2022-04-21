@@ -98,7 +98,7 @@ void faculties(SOCKET sock)
 		}
 
 		byte_recv = recv(sock, (char*)&faculty, sizeof(faculty), 0);
-		printf_s("       %3d) Name: %25s Address: %20s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
+		printf_s("       %3d) Name: %25s Address: %15s Department: %5s Phone no: %-11.11llu\n", i++, faculty.name, faculty.address, faculty.department, faculty.phone_no);
 
 
 
@@ -917,29 +917,31 @@ void admission(SOCKET sock)
 
 void chat(SOCKET sock)
 {
-	char buff[500];
-	printf("\n\n\033[1;32m                   Virtual Assistance                \033[0m \n\n");
+	char buff[500]; int i = 0;
+	printf("\n\n\033[1;32m                             Virtual Assistance      \033[0m \n\n");
 	while (true)
 	{
-		cout << "User   >> ";
+		//gotoxy(0, 7 + i);
+		cout<<"User  >>  ";
 		cin.getline(buff, sizeof(buff));
-
+		printf("\n");
 		if (!strncmp(buff, "bye", 3))
 		{
 			send(sock, (char*)&buff, sizeof(buff), 0);
 
 			//cout << "Terminating chat shortly...." << endl;
-			printf_s("\n\n");
+			printf_s("\n\n\n");
 			for (int i = 0; i < 2; i++)
 			{
-				for (int j = 0; j < 54; j++)
+				for (int j = 0; j < 73; j++)
 				{
-					printf("\033[1;31m-\033[0m");
+					printf("-");
 					Sleep(7);
 				}
 				printf("\n");
 
 			}
+			fflush(stdin);
 			return;
 		}
 
@@ -948,8 +950,34 @@ void chat(SOCKET sock)
 		send(sock, (char*)&buff, sizeof(buff), 0);
 
 		recv(sock, (char*)&buff, sizeof(buff), 0);
-		printf("\033[0;33mserver >>\033[0m %s\n", buff);
+		//gotoxy(0, 8 + i);
+
+		char temp50[53]; memset(temp50, ' ', sizeof(temp50));
+		
+		printf(" ");
+			for (int i = 1 ,j=0; i <= strlen(buff); i++,j++)
+			{
+				temp50[j] = buff[i-1];
+				if ((i ) % 51 == 0)
+				{
+					temp50[j] = 0;
+					printf_s("         %50s\n", temp50);
+					memset(temp50, ' ', sizeof(temp50));
+					j = 0;
+				}
+			}
+			temp50[strlen(buff)%50 + 1] =0;
+			printf_s("         %-50s", temp50);
+		printf("\033[0;33m  << assistant\033[0m\n\n\n", buff);
 	}
 
-	return;
+	return; 
+}
+
+void gotoxy(int x, int y)
+{
+	COORD c;
+	c.X = x;
+	c.Y = y;
+	SetConsoleCursorPosition(GetStdHandle(STD_OUTPUT_HANDLE), c);
 }
