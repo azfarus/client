@@ -615,10 +615,12 @@ void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 
 void TicketPrint(SOCKET sock , studentPortal * logged)
 {
+start:
+	system("cls");
 	printf("          Purchase: \n 1) Lunch Ticket (TK. 70)\n 2) Dinner Ticket (Tk. 80)\n");
 	int choice;
 	cout << " >> ";
-	cin >> choice;
+	scanf("%d", &choice);
 
 	if (choice == 1)
 	{
@@ -787,6 +789,7 @@ void TicketPrint(SOCKET sock , studentPortal * logged)
 	{
 		cerr << "Invalid Choice\n";
 		getchar();
+		goto start;
 		return;
 	}
 	getchar();
@@ -804,7 +807,7 @@ void admission(SOCKET sock)
 
 	int choice;
 	cout << "\n\t\t\t\t\>> ";
-	cin >> choice;
+	scanf("%d", &choice);
 
 	if (choice < 1 && choice > 3)
 	{
@@ -874,12 +877,13 @@ void admission(SOCKET sock)
 
 		cout << "\033[0;33mEnter Your HSC roll number: \033[0m\n";
 		cin >> roll_HSC;
-
+		gpstart:
 		cout << "\033[0;33mEnter Your SSC GPA: \033[0m\n >> ";
 		cin >> GPA_SSC;
 		if (GPA_SSC < 0 || GPA_SSC > 5)
 		{
 			cerr << "Invalid Input\n";
+			goto gpstart;
 			getchar();
 			return;
 		}
@@ -889,10 +893,11 @@ void admission(SOCKET sock)
 		if (GPA_HSC < 0 || GPA_HSC > 5)
 		{
 			cerr << "Invalid Input\n";
+			goto gpstart;
 			getchar();
 			return;
 		}
-		
+		grade:
 		cout << "\033[0;36m\nEnter your grades for the following subjects:\033[0m\n\n";
 		cout << "\033[0;33mPhysics \033[0m>> ";
 		cin >> grade_PHY;
@@ -900,6 +905,7 @@ void admission(SOCKET sock)
 		if (grade_PHY[0] < 'A' || grade_PHY[0] > 'F')
 		{
 			cerr << "Invalid Grade Input\n";
+			goto grade;
 			getchar();
 			return;
 		}
@@ -908,6 +914,7 @@ void admission(SOCKET sock)
 		if (grade_CHEM[0] < 'A' || grade_CHEM[0] > 'F')
 		{
 			cerr << "Invalid Grade Input\n";
+			goto grade;
 			getchar();
 			return;
 		}
@@ -917,6 +924,7 @@ void admission(SOCKET sock)
 		if (grade_MATHS[0] < 'A' || grade_MATHS[0] > 'F')
 		{
 			cerr << "Invalid Grade Input\n";
+			goto grade;
 			getchar();
 			return;
 		}
@@ -925,6 +933,7 @@ void admission(SOCKET sock)
 		if (grade_ENGLISH[0] < 'A' || grade_ENGLISH[0] > 'F')
 		{
 			cerr << "Invalid Grade Input\n";
+			goto grade;
 			getchar();
 			return;
 		}
