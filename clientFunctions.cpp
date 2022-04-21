@@ -406,6 +406,7 @@ unsigned long long Hash(const char* str)
 
 std::string takePasswdFromUser(char sp = '*')
 {
+	fflush(stdin);
 	// Stores the password
 	string passwd = "";
 	char ch_ipt;

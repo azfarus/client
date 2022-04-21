@@ -69,6 +69,7 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
+				fflush(stdin);
 				Portal(sock , &loggedStud, &log_Stat);
 			}
 		}
@@ -76,6 +77,7 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
+				fflush(stdin);
 				login_client(sock , &log_Stat , &loggedStud);
 			}
 		}
@@ -83,6 +85,7 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
+				fflush(stdin);
 				TicketPrint(sock , &loggedStud);
 			}
 		}
@@ -90,6 +93,7 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
+				fflush(stdin);
 				admission(sock);
 			}
 		}
@@ -97,6 +101,7 @@ void main()
 		{
 			if (sendResult != SOCKET_ERROR)
 			{
+				fflush(stdin);
 				chat(sock);
 
 			}
