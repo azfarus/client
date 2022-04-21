@@ -988,7 +988,7 @@ void admission(SOCKET sock)
 
 				system("cls");
 
-				printf("\n\n\n\n\t\t\t\t\032[0;33mDETAILS OF REGISTERED STUDENT\n");
+				printf("\n\n\n\n\t\t\t\t\033[0;33mDETAILS OF REGISTERED STUDENT\n");
 				printf("\t\t\t\t-----------------------------\033[0m\n\n");
 
 				cout << "\033[0;36mStudent Name : \033[0m" << name << endl;
