@@ -591,7 +591,7 @@ void login_client(SOCKET sock , int * log_Stat , studentPortal * loggedStud)
 
 void TicketPrint(SOCKET sock , studentPortal * logged)
 {
-	printf("Purchase: \n 1) Lunch Ticket (TK. 70)\n 2) Dinner Ticket (Tk. 80)\n");
+	printf("          Purchase: \n 1) Lunch Ticket (TK. 70)\n 2) Dinner Ticket (Tk. 80)\n");
 	int choice;
 	cout << " >> ";
 	cin >> choice;
