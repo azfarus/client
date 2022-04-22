@@ -1,9 +1,8 @@
-#include <iostream>
-#include <string>
-#include <WS2tcpip.h>
 #include "clientUtils.h"
 #pragma comment(lib, "ws2_32.lib")
 
+int log_Stat = 0;
+studentPortal loggedStud;
 
 
 using namespace std;
@@ -20,40 +19,109 @@ void main()
 		return;
 	}
 
-
-	SOCKET sock = connectToServer("192.168.0.106", 54000);
+	
+	SOCKET sock = connectToServer(ipaddress, 54000);
 
 	char buf[4096];
-	string userInput;
+	char userInput[500];
+	char control;
 	info siuuu;
+
+	
+
+	introScreen2(userInput , log_Stat , &loggedStud);
 
 	do
 	{
-		// Prompt the user for some text
-		cout << "> ";
-		getline(cin, userInput);
 
-		if (userInput.size() > 0)		// Make sure the user has typed in something
+		// Send the text
+		int sendResult = send(sock, userInput, sizeof(userInput) + 1, 0);
+
+		if (!strncmp(userInput, "faculty", 7))
 		{
-			// Send the text
-			int sendResult = send(sock, userInput.c_str(), userInput.size() + 1, 0);
-
-			if (!strncmp(userInput.c_str(), "faculty", 6))
+			if (sendResult != SOCKET_ERROR)
 			{
-				if (sendResult != SOCKET_ERROR)
-				{
-					// Wait for response
-					faculties(sock);
-				}
+				// Wait for response
+				//std::cout << ">>>>>  " << log_Stat<<endl;
+				faculties(sock);
 			}
-
 		}
-			
-		
 
-	} while (userInput.size() > 0);
+		else if (!strncmp(userInput, "searchfaculty", 13))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				searchFaculties_client(sock);
+			}
+		}
+
+		//Newly Implemented addition
+		else if (!strncmp(userInput, "help", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				services(sock);
+			}
+		}
+
+		//Newly Implemented addition
+		else if (!strncmp(userInput, "Portal", 6))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				fflush(stdin);
+				Portal(sock , &loggedStud, &log_Stat);
+			}
+		}
+		else if (!strncmp(userInput, "login", 6))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				fflush(stdin);
+				login_client(sock , &log_Stat , &loggedStud);
+			}
+		}
+		else if (!strncmp(userInput, "cafe", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				fflush(stdin);
+				TicketPrint(sock , &loggedStud);
+			}
+		}
+		else if (!strncmp(userInput, "admission", 9))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				fflush(stdin);
+				admission(sock);
+			}
+		}
+		else if (!strncmp(userInput, "chat", 4))
+		{
+			if (sendResult != SOCKET_ERROR)
+			{
+				fflush(stdin);
+				chat(sock);
+
+			}
+		}
+
+		printf("\n\n\n\nPress enter to go back : ");
+		getchar();
+		introScreen2(userInput, log_Stat, &loggedStud);
+
+
+
+
+
+
+	} while (true);
 
 	// Gracefully close down everything
 	closesocket(sock);
 	WSACleanup();
 }
+
+
+
